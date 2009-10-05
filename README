@@ -1,0 +1,10 @@
+Name: pyGrapher
+Lisence: GPL
+Author: "Erik Youngren" <artanis.00@gmail.com>
+
+Inspired by the Lybniz educational grapher, pyGrapher will (besides
+probably eventually being renamed,) support unlimited functions, plots
+of points, functions of y (allowing graphs of vertical lines) saving and
+loading sets of functions to a file, exporting the graph as an image,
+and setting the line style of individual functions (line width, color,
+and type.) This list is probably not complete.
