@@ -3,7 +3,6 @@
 import gtk
 import math
 from math import *
-import pango
 import hashlib
 
 import ui
@@ -44,13 +43,14 @@ def precompile_plot(model, path, row_iter, plots):
     if function != "":
         try:
             compiled = compile(function,"",'eval')
-            color = hashlib.md5(function).hexdigest()[0:6]
-            r = int("0x"+color[0:2], 16) / 255.0
-            g = int("0x"+color[2:4], 16) / 255.0
-            b = int("0x"+color[4:6], 16) / 255.0
+            c = hashlib.md5(function).hexdigest()
+            r = float(int(c[0:10],  16)) / 16**10
+            g = float(int(c[10:20], 16)) / 16**10
+            b = float(int(c[20:30], 16)) / 16**10
             plots.append((compiled, (r, g, b)))
-        except:
-            print "D:"
+        except SyntaxError:
+            print path[0], model[path][0]
+            ui.status_main.push("Syntax Error: plot %3d - %s" % (path[0], model[path][0]))
 
 def marks(min_val,max_val,minor=1):
 	""" yield positions of scale marks between min and max. For making
@@ -199,8 +199,6 @@ def expose_graph (draw, event):
                     prev = None
                     
                 y_c = int(round(canvas_y(fny)))
-                
-                print fnx, fny, y_c
                 
                 if y_c > 0 or y_c < h:
                     r, g, b = fn[1]
