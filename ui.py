@@ -2,7 +2,7 @@ import gtk
 import gtk.glade
 
 __all__ = ["ui_tree", "window_main", "store_plot", "tree_plot",
-    "draw_graph", "status_main"]
+    "draw_graph", "status_main", "trace"]
 
 def police_graphs(model, path, row_iter):
     row = model[path]
@@ -10,7 +10,7 @@ def police_graphs(model, path, row_iter):
         if row[0] == "":
             model.remove(row_iter)
     elif row[0] != "":
-        model.append(None, ["", False, gtk.gdk.Color(), 1, 1])
+        model.append(None, ["", False])
 
 def onToggle(toggle, path, model):
 	model[path][1] = not model[path][1]
@@ -32,9 +32,10 @@ signals = {
 ui_tree.signal_autoconnect(signals)
 
 # function, draw, line color, line width, line type
-store_plot = gtk.TreeStore(str, bool, gtk.gdk.Color, int, int)
-store_plot.append(None, ["sin(x)", True, gtk.gdk.Color(), 1, 1])
-store_plot.append(None, ["", False, gtk.gdk.Color(), 1, 1])
+store_plot = gtk.TreeStore(str, bool)
+store_plot.append(None, ["((x**3 + 2*x**2 + 3*x + 4) / x) / 8", True])
+store_plot.append(None, ["(x**2 + 2*x + 3) / 8", True])
+store_plot.append(None, ["", False])
 
 # Setup columns
 # COLUMN str -- Function
@@ -77,12 +78,17 @@ xmax = ui_tree.get_widget("spinner_graphwindow_x_max")
 ymin = ui_tree.get_widget("spinner_graphwindow_y_min")
 ymax = ui_tree.get_widget("spinner_graphwindow_y_max")
 
+def trace():
+    x_value = ui_tree.get_widget("spin_trace").get_value()
+    b_trace = ui_tree.get_widget("chk_trace").get_active()
+    return (b_trace, x_value)
+
 def resolution():
     return (xmin.get_value(), xmax.get_value(),
         ymin.get_value(), ymax.get_value())
 
 # Set default windowing values
-xmin.set_value(-10.0)
-xmax.set_value(10.0)
-ymin.set_value(-10.0)
-ymax.set_value(10.0)
+xmin.set_value(-5.0)
+xmax.set_value(5.0)
+ymin.set_value(-5.0)
+ymax.set_value(5.0)
