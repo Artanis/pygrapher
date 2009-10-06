@@ -33,7 +33,7 @@ ui_tree.signal_autoconnect(signals)
 
 # function, draw, line color, line width, line type
 store_plot = gtk.TreeStore(str, bool, gtk.gdk.Color, int, int)
-store_plot.append(None, ["sin(x)", True, gtk.gdk.Color(), 1, 1])
+store_plot.append(None, ["x", True, gtk.gdk.Color(), 1, 1])
 store_plot.append(None, ["", False, gtk.gdk.Color(), 1, 1])
 
 # Setup columns

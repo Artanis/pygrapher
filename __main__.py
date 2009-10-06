@@ -3,6 +3,7 @@
 import gtk
 import math
 import pango
+import hashlib
 
 import ui
 
@@ -36,6 +37,12 @@ safe_dict = sub_dict(locals(), safe_list)
 
 # End Lybniz
 
+def precompile_plot(model, path, row_iter, plots):
+    function = model[path][0].replace("^","**")
+    compiled = compile(function,"",'eval')
+    color = hashlib.md5(function).hexdigest()[0:6]
+    plots.append((compiled, color))
+    print model, path, row_iter, plots
 
 def marks(min_val,max_val,minor=1):
 	""" yield positions of scale marks between min and max. For making
@@ -168,6 +175,9 @@ def expose_graph (draw, event):
     cr.fill()
     
     # Plot graphs
+    plots = []
+    ui.store_plot.foreach(precompile_plot, plots)
+    
     
 
 def refresh_graph(btn):
