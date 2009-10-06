@@ -423,7 +423,7 @@
                     </child>
                     <child>
                       <widget class="GtkDrawingArea" id="draw_graph">
-                        <property name="width_request">400</property>
+                        <property name="width_request">410</property>
                         <property name="height_request">400</property>
                         <property name="visible">True</property>
                         <property name="app_paintable">True</property>
@@ -454,8 +454,7 @@
             <property name="spacing">2</property>
           </widget>
           <packing>
-            <property name="expand">False</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </widget>
