@@ -233,7 +233,6 @@
                                 <property name="secondary_icon_sensitive">True</property>
                                 <property name="adjustment">-10 -4294967295 4294967296 1 10 10</property>
                                 <property name="digits">2</property>
-                                <property name="snap_to_ticks">True</property>
                                 <property name="numeric">True</property>
                               </widget>
                               <packing>
@@ -255,7 +254,6 @@
                                 <property name="secondary_icon_sensitive">True</property>
                                 <property name="adjustment">-10 -4294967295 4294967296 1 10 10</property>
                                 <property name="digits">2</property>
-                                <property name="snap_to_ticks">True</property>
                                 <property name="numeric">True</property>
                               </widget>
                               <packing>
@@ -279,7 +277,6 @@
                                 <property name="secondary_icon_sensitive">True</property>
                                 <property name="adjustment">10 -4294967295 4294967296 1 10 10</property>
                                 <property name="digits">2</property>
-                                <property name="snap_to_ticks">True</property>
                                 <property name="numeric">True</property>
                               </widget>
                               <packing>
@@ -303,7 +300,6 @@
                                 <property name="secondary_icon_sensitive">True</property>
                                 <property name="adjustment">10 -4294967295 4294967296 1 10 10</property>
                                 <property name="digits">2</property>
-                                <property name="snap_to_ticks">True</property>
                                 <property name="numeric">True</property>
                               </widget>
                               <packing>
