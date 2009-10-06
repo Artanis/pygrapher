@@ -454,6 +454,7 @@
             <property name="spacing">2</property>
           </widget>
           <packing>
+            <property name="expand">False</property>
             <property name="position">3</property>
           </packing>
         </child>
