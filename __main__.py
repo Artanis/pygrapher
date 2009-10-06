@@ -3,6 +3,7 @@
 import gtk
 import math
 from math import *
+from time import time
 import hashlib
 
 import ui
@@ -38,7 +39,8 @@ safe_dict = sub_dict(locals(), safe_list)
 # End Lybniz
 
 def precompile_plot(model, path, row_iter, plots):
-    function = model[path][0].replace("^","**") if model[path][1] else ""
+    if model[path][1]: function = model[path][0].replace("^","**")
+    else: function = ""
     
     if function != "":
         try:
@@ -97,6 +99,9 @@ def marks(min_val,max_val,minor=1):
 		a_mark += interval
 
 def expose_graph (draw, event):
+    # Profiling
+    draw_start = time()
+    
     x, y, w, h = draw.get_allocation()
     cr = draw.window.cairo_create()
     
@@ -178,11 +183,6 @@ def expose_graph (draw, event):
         cr.set_line_width(1)
         cr.stroke()
     
-    cr.set_source_rgba(1,0,0,1)
-    cr.move_to(10,h-10)
-    cr.text_path("(%d x %d) (%4f)" % (w, h, w/float(h)))
-    cr.fill()
-    
     # Plot graphs
     plots = []
     ui.store_plot.foreach(precompile_plot, plots)
@@ -263,6 +263,13 @@ def expose_graph (draw, event):
                 cr.stroke_preserve()
                 cr.set_source_rgb(0,0,0)
                 cr.fill()
+    
+    draw_time = time() - draw_start
+    cr.set_source_rgba(1,0,0,1)
+    cr.move_to(10,h-10)
+    cr.text_path(
+        "(%d x %d; %4f) %fms" % (w, h, w/float(h), draw_time * 1000))
+    cr.fill()
 
 def refresh_graph(btn):
     expose_graph(ui.draw_graph, None)
