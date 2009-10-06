@@ -2,6 +2,7 @@
 
 import gtk
 import math
+from math import *
 import pango
 import hashlib
 
