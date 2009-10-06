@@ -2,7 +2,7 @@ import gtk
 import gtk.glade
 
 __all__ = ["ui_tree", "window_main", "store_plot", "tree_plot",
-    "draw_graph"]
+    "draw_graph", "status_main"]
 
 def police_graphs(model, path, row_iter):
     row = model[path]
@@ -33,7 +33,7 @@ ui_tree.signal_autoconnect(signals)
 
 # function, draw, line color, line width, line type
 store_plot = gtk.TreeStore(str, bool, gtk.gdk.Color, int, int)
-store_plot.append(None, ["x", True, gtk.gdk.Color(), 1, 1])
+store_plot.append(None, ["sin(x)", True, gtk.gdk.Color(), 1, 1])
 store_plot.append(None, ["", False, gtk.gdk.Color(), 1, 1])
 
 # Setup columns
@@ -68,8 +68,8 @@ tree_plot.append_column(col_draw)
 tree_plot.append_column(col_function)
 
 draw_graph = ui_tree.get_widget("draw_graph")
-
 window_main = ui_tree.get_widget("window_main")
+status_main = ui_tree.get_widget("status_main")
 
 # Prepare graph resolution
 xmin = ui_tree.get_widget("spinner_graphwindow_x_min")
