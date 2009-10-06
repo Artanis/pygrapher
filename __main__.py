@@ -38,11 +38,18 @@ safe_dict = sub_dict(locals(), safe_list)
 # End Lybniz
 
 def precompile_plot(model, path, row_iter, plots):
-    function = model[path][0].replace("^","**")
-    compiled = compile(function,"",'eval')
-    color = hashlib.md5(function).hexdigest()[0:6]
-    plots.append((compiled, color))
-    print model, path, row_iter, plots
+    function = model[path][0].replace("^","**") if model[path][1] else ""
+    
+    if function != "":
+        try:
+            compiled = compile(function,"",'eval')
+            color = hashlib.md5(function).hexdigest()[0:6]
+            r = int("0x"+color[0:2], 16) / 255.0
+            g = int("0x"+color[2:4], 16) / 255.0
+            b = int("0x"+color[4:6], 16) / 255.0
+            plots.append((compiled, (r, g, b)))
+        except:
+            print "D:"
 
 def marks(min_val,max_val,minor=1):
 	""" yield positions of scale marks between min and max. For making
@@ -178,7 +185,29 @@ def expose_graph (draw, event):
     plots = []
     ui.store_plot.foreach(precompile_plot, plots)
     
-    
+    if len(plots) > 0:
+        for i in xrange(0, w, 1):
+            fnx = graph_x(i+1)
+            prev = None
+            for fn in plots:
+                safe_dict['x'] = fnx
+                fny = 0
+                try:
+                    fny = eval(fn[0],{'__builtins__':{}}, safe_dict)
+                except:
+                    prev = None
+                    
+                y_c = int(round(canvas_y(fny)))
+                
+                print fnx, fny, y_c
+                
+                if y_c > 0 or y_c < h:
+                    r, g, b = fn[1]
+                    cr.set_source_rgb(r, g, b)
+                    cr.arc(i, y_c, 2, 0, 2*math.pi)
+                    cr.fill()
+                    
+                    prev = y_c
 
 def refresh_graph(btn):
     expose_graph(ui.draw_graph, None)
