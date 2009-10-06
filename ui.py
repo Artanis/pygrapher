@@ -10,7 +10,7 @@ def police_graphs(model, path, row_iter):
         if row[0] == "":
             model.remove(row_iter)
     elif row[0] != "":
-        model.append(None, ["", False])
+        model.append(None, ["", False, None])
 
 def onToggle(toggle, path, model):
 	model[path][1] = not model[path][1]
@@ -31,20 +31,26 @@ signals = {
 
 ui_tree.signal_autoconnect(signals)
 
-# function, draw, line color, line width, line type
-store_plot = gtk.TreeStore(str, bool)
-store_plot.append(None, ["((x**3 + 2*x**2 + 3*x + 4) / x) / 8", True])
-store_plot.append(None, ["(x**2 + 2*x + 3) / 8", True])
-store_plot.append(None, ["", False])
+# function, draw, error
+store_plot = gtk.TreeStore(str, bool, gtk.gdk.Pixbuf)
+store_plot.append(None, ["((x**3 + 2*x**2 + 3*x + 4) / x) / 8", True, None])
+store_plot.append(None, ["(x**2 + 2*x + 3) / 8", True, None])
+store_plot.append(None, ["", False, None])
 
 # Setup columns
 # COLUMN str -- Function
 col_function = gtk.TreeViewColumn("Function")
+
+col_function_err_cell = gtk.CellRendererPixbuf()
+col_function.pack_start(col_function_err_cell)
+
 col_function_cell = gtk.CellRendererText()
 col_function_cell.set_property("editable", True)
 col_function_cell.connect("edited", onEdited, store_plot)
 col_function.pack_start(col_function_cell)
+
 col_function.add_attribute(col_function_cell, "text", 0)
+col_function.add_attribute(col_function_err_cell, "pixbuf", 2)
 
 # COLUMN bool -- Plot the function?
 col_draw = gtk.TreeViewColumn()
@@ -53,15 +59,6 @@ col_draw_cell.set_property("activatable", True)
 col_draw_cell.connect("toggled", onToggle, store_plot)
 col_draw.pack_start(col_draw_cell)
 col_draw.add_attribute(col_draw_cell, "active", 1)
-
-# COLUMN gtk.gdk.Color -- Line color
-# TODO: line color
-
-# COLUMN int -- Line width
-# TODO: line width
-
-# COLUMN int -- Line style
-# TODO: line style
 
 tree_plot = ui_tree.get_widget("tree_plot")
 tree_plot.set_model(store_plot)
