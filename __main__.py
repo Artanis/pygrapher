@@ -48,9 +48,10 @@ def precompile_plot(model, path, row_iter, plots):
             g = float(int(c[10:20], 16)) / 16**10
             b = float(int(c[20:30], 16)) / 16**10
             plots.append((compiled, (r, g, b)))
+            model[path][2] = None
         except SyntaxError:
-            print path[0], model[path][0]
-            ui.status_main.push("Syntax Error: plot %3d - %s" % (path[0], model[path][0]))
+            model[path][2] = gtk.icon_theme_get_default().load_icon(
+                "gtk-dialog-warning", gtk.ICON_SIZE_MENU, 0)
 
 def marks(min_val,max_val,minor=1):
 	""" yield positions of scale marks between min and max. For making
@@ -177,9 +178,9 @@ def expose_graph (draw, event):
         cr.set_line_width(1)
         cr.stroke()
     
-    cr.set_source_rgba(1,0,0,0.25)
+    cr.set_source_rgba(1,0,0,1)
     cr.move_to(10,h-10)
-    cr.text_path("%d x %d" % (w, h))
+    cr.text_path("(%d x %d) (%4f)" % (w, h, w/float(h)))
     cr.fill()
     
     # Plot graphs
