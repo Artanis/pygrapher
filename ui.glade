@@ -374,24 +374,14 @@
                             <property name="use_stock">True</property>
                           </widget>
                           <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
                             <property name="padding">4</property>
                             <property name="position">0</property>
                           </packing>
                         </child>
                         <child>
-                          <widget class="GtkLabel" id="lbl_evaluate">
-                            <property name="visible">True</property>
-                            <property name="xalign">0.89999997615814209</property>
-                            <property name="ypad">1</property>
-                            <property name="label" translatable="yes">Trace</property>
-                          </widget>
-                          <packing>
-                            <property name="padding">4</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkSpinButton" id="spinbutton1">
+                          <widget class="GtkSpinButton" id="spin_trace">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="invisible_char">&#x25CF;</property>
@@ -400,8 +390,22 @@
                             <property name="digits">2</property>
                           </widget>
                           <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
                             <property name="padding">4</property>
-                            <property name="position">2</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkCheckButton" id="chk_trace">
+                            <property name="label" translatable="yes">Trace</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="draw_indicator">True</property>
+                          </widget>
+                          <packing>
+                            <property name="position">3</property>
                           </packing>
                         </child>
                       </widget>
