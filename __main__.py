@@ -187,6 +187,36 @@ def expose_graph (draw, event):
     ui.store_plot.foreach(precompile_plot, plots)
     
     if len(plots) > 0:
+        domain = xrange(0, w, 1)
+        
+        for fn in plots:
+            prev = None
+            for i in domain:
+                fn_x = graph_x(i+1)
+                
+                safe_dict['x'] = fn_x
+                
+                fn_y = None
+                try:
+                    fn_y = eval(fn[0],{'__builtins__':{}}, safe_dict)
+                except:
+                    pass
+                
+                if fn_y is not None:
+                    y_c = int(round(canvas_y(fn_y)))
+                    
+                    if y_c > 0 and y_c < h:
+                        r, g, b = fn[1]
+                        cr.set_source_rgb(r, g, b)
+                        cr.line_to(i+1, y_c)
+                        
+                        
+                prev = y_c
+            cr.set_line_width(1.5)
+            cr.stroke()        
+                    
+    """
+    if len(plots) > 0:
         for i in xrange(0, w, 1):
             fnx = graph_x(i+1)
             prev = None
@@ -203,10 +233,11 @@ def expose_graph (draw, event):
                 if y_c > 0 or y_c < h:
                     r, g, b = fn[1]
                     cr.set_source_rgb(r, g, b)
-                    cr.arc(i, y_c, 2, 0, 2*math.pi)
-                    cr.fill()
+                    cr.arc(i, y_c, 1, 0, 2*math.pi)
+                    
                     
                     prev = y_c
+            cr.fill()"""
 
 def refresh_graph(btn):
     expose_graph(ui.draw_graph, None)
