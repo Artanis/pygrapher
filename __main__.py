@@ -179,7 +179,7 @@ def expose_graph (draw, event):
     
     cr.set_source_rgba(1,0,0,0.25)
     cr.move_to(10,h-10)
-    cr.text_path("(%d, %d)" % (w, h))
+    cr.text_path("%d x %d" % (w, h))
     cr.fill()
     
     # Plot graphs
@@ -206,38 +206,62 @@ def expose_graph (draw, event):
                     y_c = int(round(canvas_y(fn_y)))
                     
                     if y_c > 0 and y_c < h:
-                        r, g, b = fn[1]
-                        cr.set_source_rgb(r, g, b)
-                        cr.line_to(i+1, y_c)
+                        
+                        if prev is not None:
+                            cr.line_to(i+1, y_c)
+                        else:
+                            cr.move_to(i+1, y_c)
+                    else:
+                        y_c = None
                         
                         
                 prev = y_c
+            r, g, b = fn[1]
+            cr.set_source_rgb(r, g, b)
+            cr.set_line_width(3.0)
+            cr.stroke_preserve()
+            cr.set_source_rgba(0, 0, 0, 0.5)
             cr.set_line_width(1.5)
-            cr.stroke()        
-                    
-    """
-    if len(plots) > 0:
-        for i in xrange(0, w, 1):
-            fnx = graph_x(i+1)
-            prev = None
-            for fn in plots:
-                safe_dict['x'] = fnx
-                fny = 0
-                try:
-                    fny = eval(fn[0],{'__builtins__':{}}, safe_dict)
-                except:
-                    prev = None
-                    
-                y_c = int(round(canvas_y(fny)))
+            cr.stroke()
+    
+    # Draw the trace line and highlight intersections (with coords)
+    b_trace, x_value = ui.trace()
+    if b_trace:
+        x_c = int(round(canvas_x(x_value)))
+        cr.move_to(x_c, 0)
+        cr.line_to(x_c, h)
+        cr.set_source_rgb(1, 0, 0)
+        cr.set_line_width(3.0)
+        cr.stroke_preserve()
+        cr.set_source_rgba(0,0,0,0.5)
+        cr.set_line_width(1.5)
+        cr.stroke()
+        
+        safe_dict['x'] = x_value
+        for fn in plots:
+            try:
+                fn_y = eval(fn[0],{'__builtins__':{}}, safe_dict)
+            except:
+                fn_y = None
+            
+            y_c = int(round(canvas_y(fn_y))) if fn_y is not None else -1
+            if y_c > 0 and y_c < h:
+                cr.arc(x_c, y_c, 3.0, 0, 2*math.pi)
+                cr.set_source_rgb(1, 0, 0)
+                cr.set_line_width(2.0)
+                cr.stroke_preserve()
+                cr.set_source_rgba(0,0,0,0.5)
+                cr.set_line_width(1)
+                cr.stroke()
                 
-                if y_c > 0 or y_c < h:
-                    r, g, b = fn[1]
-                    cr.set_source_rgb(r, g, b)
-                    cr.arc(i, y_c, 1, 0, 2*math.pi)
-                    
-                    
-                    prev = y_c
-            cr.fill()"""
+                label = "(%0.4f, %0.4f)" % (x_value, fn_y)
+                cr.move_to(x_c+10, y_c+10)
+                cr.text_path(label)
+                cr.set_source_rgba(1,1,1,0.75)
+                cr.set_line_width(6)
+                cr.stroke_preserve()
+                cr.set_source_rgb(0,0,0)
+                cr.fill()
 
 def refresh_graph(btn):
     expose_graph(ui.draw_graph, None)
