@@ -1,35 +1,15 @@
 import gtk
 import gtk.glade
 
+import callbacks
+
 __all__ = ["ui_tree", "window_main", "store_plot", "tree_plot",
     "draw_graph", "status_main", "trace"]
-
-def police_graphs(model, path, row_iter):
-    row = model[path]
-    if row.next is not None:
-        if row[0] == "":
-            model.remove(row_iter)
-    elif row[0] != "":
-        model.append(None, ["", False, None])
-
-def onToggle(toggle, path, model):
-	model[path][1] = not model[path][1]
-
-def onEdited(cell, path, text, model):
-	model[path][0] = text
-	model[path][1] = True
-	
-	# Auto create/delete functions as needed
-	model.foreach(police_graphs)
 
 glade_ui = "ui.glade"
 ui_tree = gtk.glade.XML(glade_ui)
 
-signals = {
-    "gtk_main_quit": gtk.main_quit,
-}
-
-ui_tree.signal_autoconnect(signals)
+ui_tree.signal_autoconnect(callbacks.signals)
 
 # function, draw, error
 store_plot = gtk.TreeStore(str, bool, gtk.gdk.Pixbuf)
@@ -46,7 +26,8 @@ col_function.pack_start(col_function_err_cell)
 
 col_function_cell = gtk.CellRendererText()
 col_function_cell.set_property("editable", True)
-col_function_cell.connect("edited", onEdited, store_plot)
+col_function_cell.connect("edited",
+    callbacks.on_col_function_cell_edited, store_plot)
 col_function.pack_start(col_function_cell)
 
 col_function.add_attribute(col_function_cell, "text", 0)
@@ -56,7 +37,7 @@ col_function.add_attribute(col_function_err_cell, "pixbuf", 2)
 col_draw = gtk.TreeViewColumn()
 col_draw_cell = gtk.CellRendererToggle()
 col_draw_cell.set_property("activatable", True)
-col_draw_cell.connect("toggled", onToggle, store_plot)
+col_draw_cell.connect("toggled", on_col_draw_cell_toggled, store_plot)
 col_draw.pack_start(col_draw_cell)
 col_draw.add_attribute(col_draw_cell, "active", 1)
 
