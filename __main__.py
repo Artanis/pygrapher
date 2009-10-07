@@ -203,6 +203,7 @@ def expose_graph (draw, event):
                 except:
                     pass
                 
+                y_c = None
                 if fn_y is not None:
                     y_c = int(round(canvas_y(fn_y)))
                     
