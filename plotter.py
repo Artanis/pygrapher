@@ -9,9 +9,14 @@ __all__ = ['Function']
 # is going to get ridiculous... I'm going to have to figure everything
 # out before I can pull it apart and get it back together again.
 
-# Anyway, this next block of code is from Lybniz
+# Anyway, this next block of code is from Lybniz. I've made a few
+# changes, though. Formatting, comments, avoiding re-inventing the
+# wheel, etc.
 
 # some extra maths functions
+# Note: turns out factorial is defined in the math module now. No need
+# to re-invent, so we'll just grab a reference to it for use in the
+# dictionary.
 fac = factorial
 
 def sinc(x):
@@ -21,9 +26,24 @@ def sinc(x):
 
 # create a safe namespace for the eval()s in the graph drawing code
 def sub_dict(somedict, somekeys, default=None):
-	return dict([ (k, somedict.get(k, default)) for k in somekeys ])
+    """ Filters a dict against a list of keys.
+    
+    Named Arguments:
+    * somedict -- a dictionary
+    * somekeys -- a list of strings used to filter the keys in somedict
+    * default -- the default value keys in somekeys but not in somedict
+      should take in the returned dict. Defaults to None.
+    
+    """
+    
+	return dict([(k, somedict.get(k, default)) for k in somekeys])
+
 # a list of the functions from math that we want.
-safe_list = ['math','acos', 'asin', 'atan', 'atan2', 'ceil', 'cos', 'cosh', 'degrees', 'e', 'exp', 'fabs', 'floor', 'fmod', 'frexp', 'hypot', 'ldexp', 'log', 'log10', 'modf', 'pi', 'pow', 'radians', 'sin', 'sinh', 'sqrt', 'tan', 'tanh','fac','sinc']
+safe_list = ['math','acos', 'asin', 'atan', 'atan2', 'ceil', 'cos',
+    'cosh', 'degrees', 'e', 'exp', 'fabs', 'floor', 'fmod', 'frexp',
+    'hypot', 'ldexp', 'log', 'log10', 'modf', 'pi', 'pow', 'radians',
+    'sin', 'sinh', 'sqrt', 'tan', 'tanh','fac', 'factorial', 'sinc']
+
 safe_dict = sub_dict(locals(), safe_list)
 
 def marks(min_val,max_val,minor=1):
