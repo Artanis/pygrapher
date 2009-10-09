@@ -169,7 +169,7 @@
                         <child>
                           <widget class="GtkTable" id="table_graphwindow">
                             <property name="visible">True</property>
-                            <property name="n_rows">4</property>
+                            <property name="n_rows">6</property>
                             <property name="n_columns">2</property>
                             <child>
                               <widget class="GtkLabel" id="lbl_graphwindow_x_min">
@@ -177,6 +177,8 @@
                                 <property name="label" translatable="yes">X-min</property>
                               </widget>
                               <packing>
+                                <property name="top_attach">1</property>
+                                <property name="bottom_attach">2</property>
                                 <property name="x_options"></property>
                                 <property name="x_padding">4</property>
                                 <property name="y_padding">2</property>
@@ -188,8 +190,8 @@
                                 <property name="label" translatable="yes">Y-min</property>
                               </widget>
                               <packing>
-                                <property name="top_attach">2</property>
-                                <property name="bottom_attach">3</property>
+                                <property name="top_attach">3</property>
+                                <property name="bottom_attach">4</property>
                                 <property name="x_options"></property>
                                 <property name="x_padding">4</property>
                                 <property name="y_padding">2</property>
@@ -201,8 +203,8 @@
                                 <property name="label" translatable="yes">X-max</property>
                               </widget>
                               <packing>
-                                <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
+                                <property name="top_attach">2</property>
+                                <property name="bottom_attach">3</property>
                                 <property name="x_options"></property>
                                 <property name="x_padding">4</property>
                                 <property name="y_padding">2</property>
@@ -214,8 +216,8 @@
                                 <property name="label" translatable="yes">Y-max</property>
                               </widget>
                               <packing>
-                                <property name="top_attach">3</property>
-                                <property name="bottom_attach">4</property>
+                                <property name="top_attach">4</property>
+                                <property name="bottom_attach">5</property>
                                 <property name="x_options"></property>
                                 <property name="x_padding">4</property>
                                 <property name="y_padding">2</property>
@@ -238,6 +240,8 @@
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="right_attach">2</property>
+                                <property name="top_attach">1</property>
+                                <property name="bottom_attach">2</property>
                                 <property name="x_padding">4</property>
                                 <property name="y_padding">2</property>
                               </packing>
@@ -259,8 +263,8 @@
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="right_attach">2</property>
-                                <property name="top_attach">2</property>
-                                <property name="bottom_attach">3</property>
+                                <property name="top_attach">3</property>
+                                <property name="bottom_attach">4</property>
                                 <property name="x_padding">4</property>
                                 <property name="y_padding">2</property>
                               </packing>
@@ -282,8 +286,8 @@
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="right_attach">2</property>
-                                <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
+                                <property name="top_attach">2</property>
+                                <property name="bottom_attach">3</property>
                                 <property name="x_padding">4</property>
                                 <property name="y_padding">2</property>
                               </packing>
@@ -305,8 +309,53 @@
                               <packing>
                                 <property name="left_attach">1</property>
                                 <property name="right_attach">2</property>
-                                <property name="top_attach">3</property>
-                                <property name="bottom_attach">4</property>
+                                <property name="top_attach">4</property>
+                                <property name="bottom_attach">5</property>
+                                <property name="x_padding">4</property>
+                                <property name="y_padding">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="GtkButton" id="btn_refresh">
+                                <property name="label" translatable="yes">gtk-refresh</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="use_stock">True</property>
+                              </widget>
+                              <packing>
+                                <property name="right_attach">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="GtkSpinButton" id="spin_trace">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="invisible_char">&#x25CF;</property>
+                                <property name="xalign">1</property>
+                                <property name="adjustment">0 -4294967295 4294967296 1 10 10</property>
+                                <property name="digits">2</property>
+                              </widget>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="right_attach">2</property>
+                                <property name="top_attach">5</property>
+                                <property name="bottom_attach">6</property>
+                                <property name="x_padding">4</property>
+                                <property name="y_padding">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="GtkCheckButton" id="chk_trace">
+                                <property name="label" translatable="yes">Trace</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="draw_indicator">True</property>
+                              </widget>
+                              <packing>
+                                <property name="top_attach">5</property>
+                                <property name="bottom_attach">6</property>
                                 <property name="x_padding">4</property>
                                 <property name="y_padding">2</property>
                               </packing>
@@ -360,75 +409,11 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkVBox" id="vbox1">
+                  <widget class="GtkDrawingArea" id="draw_graph">
+                    <property name="width_request">410</property>
+                    <property name="height_request">400</property>
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <widget class="GtkHBox" id="hbox1">
-                        <property name="visible">True</property>
-                        <child>
-                          <widget class="GtkButton" id="btn_refresh">
-                            <property name="label" translatable="yes">gtk-refresh</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="relief">none</property>
-                            <property name="use_stock">True</property>
-                          </widget>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="padding">4</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkSpinButton" id="spin_trace">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="invisible_char">&#x25CF;</property>
-                            <property name="xalign">1</property>
-                            <property name="adjustment">0 -4294967295 4294967296 1 10 10</property>
-                            <property name="digits">2</property>
-                          </widget>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="padding">4</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkCheckButton" id="chk_trace">
-                            <property name="label" translatable="yes">Trace</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
-                            <property name="draw_indicator">True</property>
-                          </widget>
-                          <packing>
-                            <property name="position">3</property>
-                          </packing>
-                        </child>
-                      </widget>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="padding">4</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="GtkDrawingArea" id="draw_graph">
-                        <property name="width_request">410</property>
-                        <property name="height_request">400</property>
-                        <property name="visible">True</property>
-                        <property name="app_paintable">True</property>
-                      </widget>
-                      <packing>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
+                    <property name="app_paintable">True</property>
                   </widget>
                   <packing>
                     <property name="resize">True</property>

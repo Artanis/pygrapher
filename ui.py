@@ -37,7 +37,7 @@ col_function.add_attribute(col_function_err_cell, "pixbuf", 2)
 col_draw = gtk.TreeViewColumn()
 col_draw_cell = gtk.CellRendererToggle()
 col_draw_cell.set_property("activatable", True)
-col_draw_cell.connect("toggled", on_col_draw_cell_toggled, store_plot)
+col_draw_cell.connect("toggled", callbacks.on_col_draw_cell_toggled, store_plot)
 col_draw.pack_start(col_draw_cell)
 col_draw.add_attribute(col_draw_cell, "active", 1)
 

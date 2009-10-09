@@ -1,3 +1,5 @@
+import gtk
+
 __all__ = ["signals"]
 
 # Tree View Row Callbacks
@@ -5,7 +7,7 @@ def on_col_draw_cell_toggled(toggle, path, model):
     """ Toggles the draw field of the row in the store_plot
     
     """
-	model[path][1] = not model[path][1]
+    model[path][1] = not model[path][1]
 
 def police_graphs(model, path, row_iter):
     """ TreeStore Foreach callback
@@ -29,11 +31,11 @@ def on_col_function_cell_edited(cell, path, text, model):
     
     """
     
-	model[path][0] = text
-	model[path][1] = True
-	
-	# Auto create/delete functions as needed
-	model.foreach(police_graphs)
+    model[path][0] = text
+    model[path][1] = True
+    
+    # Auto create/delete functions as needed
+    model.foreach(police_graphs)
 
 def on_tree_plot_key_press_event(widget, event):
     print widget.get_selection()
