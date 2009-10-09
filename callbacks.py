@@ -22,7 +22,7 @@ def police_graphs(model, path, row_iter):
         if row[0] == "":
             model.remove(row_iter)
     elif row[0] != "":
-        model.append(None, ["", False, None])
+        model.append(None, ["", False])
 
 def on_col_function_cell_edited(cell, path, text, model):
     """ Store new text for the row in store_plot
