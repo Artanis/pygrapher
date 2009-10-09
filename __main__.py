@@ -128,7 +128,7 @@ def expose_graph (draw, event):
     # Plot graphs
     functions = []
     def foreach_cb(treemodel, treepath, treeiter):
-        if treemodel[treepath][0] != "":
+        if treemodel[treepath][1] and treemodel[treepath][0] != "":
             functions.append(plotter.Function(treemodel[treepath][0]))
     
     ui.store_plot.foreach(foreach_cb)
@@ -137,46 +137,28 @@ def expose_graph (draw, event):
         domain = map(graph_x, xrange(0, w, 1))
         
         for function in functions:
+            prev_drawn = False
             for point in function.plot(domain):
-                print point
-        
-        """
-        for fn in plots:
-            prev = None
-            for i in domain:
-                fn_x = graph_x(i+1)
+                p_x, p_y = point
                 
-                safe_dict['x'] = fn_x
+                p_x = int(round(canvas_x(p_x)))
                 
-                fn_y = None
-                try:
-                    fn_y = eval(fn[0],{'__builtins__':{}}, safe_dict)
-                except:
-                    pass
+                p_y = int(round(canvas_y(p_y))) if p_y is not None else None
                 
-                y_c = None
-                if fn_y is not None:
-                    y_c = int(round(canvas_y(fn_y)))
-                    
-                    if y_c > 0 and y_c < h:
-                        
-                        if prev is not None:
-                            cr.line_to(i+1, y_c)
-                        else:
-                            cr.move_to(i+1, y_c)
+                if p_y is None or p_y < 0 or p_y > h:
+                    prev_drawn = False
+                else:
+                    if prev_drawn:
+                        cr.line_to(p_x, p_y)
+                        prev_drawn = True
                     else:
-                        y_c = None
-                        
-                        
-                prev = y_c
-            r, g, b = fn[1]
+                        cr.move_to(p_x, p_y)
+                        prev_drawn = True
+            
+            r, g, b, a = function.color
             cr.set_source_rgb(r, g, b)
-            cr.set_line_width(3.0)
-            cr.stroke_preserve()
-            cr.set_source_rgba(0, 0, 0, 0.5)
-            cr.set_line_width(1.5)
+            cr.set_line_width(1)
             cr.stroke()
-        """
     
     # Draw the trace line and highlight intersections (with coords)
     b_trace, x_value = ui.trace()
