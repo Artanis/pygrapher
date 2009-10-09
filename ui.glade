@@ -236,6 +236,7 @@
                                 <property name="adjustment">-10 -4294967295 4294967296 1 10 10</property>
                                 <property name="digits">2</property>
                                 <property name="numeric">True</property>
+                                <signal name="change_value" handler="on_graphwindow_changed"/>
                               </widget>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -259,6 +260,7 @@
                                 <property name="adjustment">-10 -4294967295 4294967296 1 10 10</property>
                                 <property name="digits">2</property>
                                 <property name="numeric">True</property>
+                                <signal name="change_value" handler="on_graphwindow_changed"/>
                               </widget>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -282,6 +284,7 @@
                                 <property name="adjustment">10 -4294967295 4294967296 1 10 10</property>
                                 <property name="digits">2</property>
                                 <property name="numeric">True</property>
+                                <signal name="change_value" handler="on_graphwindow_changed"/>
                               </widget>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -305,6 +308,7 @@
                                 <property name="adjustment">10 -4294967295 4294967296 1 10 10</property>
                                 <property name="digits">2</property>
                                 <property name="numeric">True</property>
+                                <signal name="change_value" handler="on_graphwindow_changed"/>
                               </widget>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -322,6 +326,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="use_stock">True</property>
+                                <signal name="clicked" handler="on_btn_refresh_clicked"/>
                               </widget>
                               <packing>
                                 <property name="right_attach">2</property>
@@ -335,6 +340,7 @@
                                 <property name="xalign">1</property>
                                 <property name="adjustment">0 -4294967295 4294967296 1 10 10</property>
                                 <property name="digits">2</property>
+                                <signal name="change_value" handler="on_spin_trace_change_value"/>
                               </widget>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -352,6 +358,7 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="draw_indicator">True</property>
+                                <signal name="toggled" handler="on_chk_trace_toggled"/>
                               </widget>
                               <packing>
                                 <property name="top_attach">5</property>
@@ -393,7 +400,6 @@
                             <property name="rules_hint">True</property>
                             <property name="enable_search">False</property>
                             <property name="show_expanders">False</property>
-                            <signal name="button_press_event" handler="on_tree_plot_button_press_event" object="popup"/>
                             <signal name="key_press_event" handler="on_tree_plot_key_press_event"/>
                           </widget>
                         </child>
@@ -410,10 +416,11 @@
                 </child>
                 <child>
                   <widget class="GtkDrawingArea" id="draw_graph">
-                    <property name="width_request">410</property>
+                    <property name="width_request">396</property>
                     <property name="height_request">400</property>
                     <property name="visible">True</property>
                     <property name="app_paintable">True</property>
+                    <signal name="button_press_event" handler="on_draw_graph_button_press_event"/>
                   </widget>
                   <packing>
                     <property name="resize">True</property>
