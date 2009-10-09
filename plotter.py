@@ -107,16 +107,22 @@ class Function(object):
         numbers between 0.0 and 1.0 inclusive.
         
         Generated automatically from the text of the function via MD5
-        hash, with each component taking 8 digits of the hexdigest.
+        hash, with each components taking 8 digits of the hexdigest
+        each. From RGB, the highest and lowest values are selected and
+        made 1.0 and 0.0 respectively, the other is scaled to that
+        range. A is divided by it's maximum possible value.
         
         """
         
         color = hashlib.md5(self.__function).hexdigest()
-        return (
-            int(color[0:8],   16) / float(16**8),
-            int(color[8:16],  16) / float(16**8),
-            int(color[16:24], 16) / float(16**8),
-            int(color[24:32], 16) / float(16**8))
+        color = [int(color[0:8], 16), int(color[8:16], 16),
+            int(color[16:24], 16), int(color[24:32], 16)]
+        
+        top = float(max(color[0:3]))
+        bottom = float(min(color[0:3]))
+        
+        return ((color[0]-bottom) / (top-bottom), (color[1]-bottom) / (top-bottom),
+            (color[2]-bottom) / (top-bottom), color[3] / float(16**8))
     
     def __compile(self):
         """ Compiles the function text """
