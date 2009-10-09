@@ -7,6 +7,8 @@ from time import time
 import hashlib
 
 import ui
+import plotter
+import renderer
 
 # I knew this app was going to borrow  heavily from Lybniz, but this
 # is going to get ridiculous... I'm going to have to figure everything
@@ -37,65 +39,6 @@ safe_list = ['math','acos', 'asin', 'atan', 'atan2', 'ceil', 'cos', 'cosh', 'deg
 safe_dict = sub_dict(locals(), safe_list)
 
 # End Lybniz
-
-def precompile_plot(model, path, row_iter, plots):
-    if model[path][1]: function = model[path][0].replace("^","**")
-    else: function = ""
-    
-    if function != "":
-        try:
-            compiled = compile(function,"",'eval')
-            c = hashlib.md5(function).hexdigest()
-            r = float(int(c[0:10],  16)) / 16**10
-            g = float(int(c[10:20], 16)) / 16**10
-            b = float(int(c[20:30], 16)) / 16**10
-            plots.append((compiled, (r, g, b)))
-            model[path][2] = None
-        except SyntaxError:
-            pass
-
-def marks(min_val,max_val,minor=1):
-	""" yield positions of scale marks between min and max. For making
-	minor marks, set minor to the number of minors you want between
-	majors
-	
-	Borrowed wholesale from Lybniz by Thomas Führinger and Sam Tygier
-	
-	Thanks guys!
-	
-	"""
-	
-	try:
-		min_val = float(min_val)
-		max_val = float(max_val)
-	except:
-		print "needs 2 numbers"
-		raise ValueError
-
-	if(min_val >= max_val):
-		print "min bigger or equal to max"
-		raise ValueError		
-
-	a = 0.2 # tweakable control for when to switch scales
-	          # big a value results in more marks
-
-	a = a + math.log10(minor)
-
-	width = max_val - min_val
-	log10_range = math.log10(width)
-
-	interval = 10 ** int(math.floor(log10_range - a))
-	lower_mark = min_val - math.fmod(min_val,interval)
-	
-	if lower_mark < min_val:
-		lower_mark += interval
-
-	a_mark = lower_mark
-	while a_mark <= max_val:
-		if abs(a_mark) < interval / 2:
-			a_mark = 0
-		yield a_mark
-		a_mark += interval
 
 def expose_graph (draw, event):
     # Profiling
@@ -137,7 +80,7 @@ def expose_graph (draw, event):
     cr.set_line_width(1.5)
     cr.stroke()
     
-    for i in marks(xmin / factor, xmax / factor):
+    for i in plotter.marks(xmin / factor, xmax / factor):
         label = '%g' % i
         i = i * factor
         
@@ -152,7 +95,7 @@ def expose_graph (draw, event):
         cr.text_path(label)
         cr.fill()
     
-    for i in marks(ymin, ymax):
+    for i in plotter.marks(ymin, ymax):
         label = '%g' % i
         
         cr.set_source_rgb(0,0,0)
@@ -166,7 +109,7 @@ def expose_graph (draw, event):
         cr.text_path(label)
         cr.fill()
     
-    for i in marks(xmin / factor, xmax / factor, minor=10):
+    for i in plotter.marks(xmin / factor, xmax / factor, minor=10):
         i = i * factor
         
         cr.set_source_rgb(0,0,0)
@@ -175,7 +118,7 @@ def expose_graph (draw, event):
         cr.set_line_width(1)
         cr.stroke()
     
-    for i in marks(ymin, ymax, minor=10):
+    for i in plotter.marks(ymin, ymax, minor=10):
         cr.set_source_rgb(0,0,0)
         cr.move_to(origin_x - 2, int(round(canvas_y(i))))
         cr.line_to(origin_x + 2, int(round(canvas_y(i))))
@@ -183,12 +126,21 @@ def expose_graph (draw, event):
         cr.stroke()
     
     # Plot graphs
-    plots = []
-    ui.store_plot.foreach(precompile_plot, plots)
+    functions = []
+    def foreach_cb(treemodel, treepath, treeiter):
+        if treemodel[treepath][0] != "":
+            functions.append(plotter.Function(treemodel[treepath][0]))
     
-    if len(plots) > 0:
-        domain = xrange(0, w, 1)
+    ui.store_plot.foreach(foreach_cb)
+    
+    if len(functions) > 0:
+        domain = map(graph_x, xrange(0, w, 1))
         
+        for function in functions:
+            for point in function.plot(domain):
+                print point
+        
+        """
         for fn in plots:
             prev = None
             for i in domain:
@@ -224,6 +176,7 @@ def expose_graph (draw, event):
             cr.set_source_rgba(0, 0, 0, 0.5)
             cr.set_line_width(1.5)
             cr.stroke()
+        """
     
     # Draw the trace line and highlight intersections (with coords)
     b_trace, x_value = ui.trace()
