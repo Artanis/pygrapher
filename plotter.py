@@ -101,7 +101,7 @@ class Function(object):
         self.__function = function_definition
     
     @property
-    def color():
+    def color(self):
         """ A tuple containing the color of this function in RGBA space,
         where the individual components are in the set of Rational
         numbers between 0.0 and 1.0 inclusive.
@@ -134,6 +134,8 @@ class Function(object):
         * domain -- a (finite) list of real numbers. Sorry, but
           calculating values for domains of infinite size is just too
           much work.
+        
+        Returns a generator for the coordinates.
         
         """
         function = self.__compile()
