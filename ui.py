@@ -21,9 +21,6 @@ store_plot.append(None, ["", False])
 # COLUMN str -- Function
 col_function = gtk.TreeViewColumn("Function")
 
-col_function_err_cell = gtk.CellRendererPixbuf()
-col_function.pack_start(col_function_err_cell)
-
 col_function_cell = gtk.CellRendererText()
 col_function_cell.set_property("editable", True)
 col_function_cell.connect("edited",
@@ -31,7 +28,6 @@ col_function_cell.connect("edited",
 col_function.pack_start(col_function_cell)
 
 col_function.add_attribute(col_function_cell, "text", 0)
-col_function.add_attribute(col_function_err_cell, "pixbuf", 2)
 
 # COLUMN bool -- Plot the function?
 col_draw = gtk.TreeViewColumn()
