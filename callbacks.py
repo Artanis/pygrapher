@@ -38,8 +38,9 @@ def on_col_function_cell_edited(cell, path, text, model):
     model.foreach(police_graphs)
 
 def on_tree_plot_key_press_event(widget, event):
-    print widget.get_selection()
-    print event.keyval
+    pass
+    #print widget.get_selection()
+    #print event.keyval
 
 signals = {
     "gtk_main_quit": gtk.main_quit,
