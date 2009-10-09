@@ -81,7 +81,7 @@ def expose_graph (draw, event):
     cr.stroke()
     
     for i in plotter.marks(xmin / factor, xmax / factor):
-        label = '%g' % i
+        label = '%g' % i if i != 0 else ""
         i = i * factor
         
         cr.set_source_rgb(0,0,0)
@@ -91,12 +91,12 @@ def expose_graph (draw, event):
         cr.stroke()
         
         cr.set_source_rgb(0,0,0)
-        cr.move_to(int(round(canvas_x(i))) + 5 , origin_y + 10)
+        cr.move_to(int(round(canvas_x(i))) + -5 , origin_y + 15)
         cr.text_path(label)
         cr.fill()
     
     for i in plotter.marks(ymin, ymax):
-        label = '%g' % i
+        label = '%g' % i if i != 0 else ""
         
         cr.set_source_rgb(0,0,0)
         cr.move_to(origin_x - 5, int(round(canvas_y(i))))
@@ -105,7 +105,7 @@ def expose_graph (draw, event):
         cr.stroke()
         
         cr.set_source_rgb(0,0,0)
-        cr.move_to(origin_x + 5, int(round(canvas_y(i)))+10)
+        cr.move_to(origin_x - 15, int(round(canvas_y(i))) + 5)
         cr.text_path(label)
         cr.fill()
     
@@ -163,35 +163,33 @@ def expose_graph (draw, event):
     # Draw the trace line and highlight intersections (with coords)
     b_trace, x_value = ui.trace()
     if b_trace:
-        x_c = int(round(canvas_x(x_value)))
-        cr.move_to(x_c, 0)
-        cr.line_to(x_c, h)
-        cr.set_source_rgb(1, 0, 0)
-        cr.set_line_width(3.0)
-        cr.stroke_preserve()
-        cr.set_source_rgba(0,0,0,0.5)
-        cr.set_line_width(1.5)
+        c_x = int(round(canvas_x(x_value)))
+        
+        cr.move_to(c_x, 0)
+        cr.line_to(c_x, h)
+        
+        cr.set_source_rgb(1,0,0)
+        cr.set_line_width(1)
         cr.stroke()
         
-        safe_dict['x'] = x_value
-        for fn in plots:
-            try:
-                fn_y = eval(fn[0],{'__builtins__':{}}, safe_dict)
-            except:
-                fn_y = None
+        for function in functions:
+            x_value, y_value = function.evaluate(x_value)
             
-            y_c = int(round(canvas_y(fn_y))) if fn_y is not None else -1
-            if y_c > 0 and y_c < h:
-                cr.arc(x_c, y_c, 3.0, 0, 2*math.pi)
-                cr.set_source_rgb(1, 0, 0)
-                cr.set_line_width(2.0)
-                cr.stroke_preserve()
-                cr.set_source_rgba(0,0,0,0.5)
+            c_y = -1
+            if y_value is not None:
+                c_y = int(round(canvas_y(y_value)))
+            
+            if c_y > 0 and c_y < h:
+                cr.set_source_rgb(1,0,0)
                 cr.set_line_width(1)
+                cr.move_to(c_x - 5, c_y - 5)
+                cr.line_to(c_x + 5, c_y + 5)
+                cr.move_to(c_x + 5, c_y - 5)
+                cr.line_to(c_x - 5, c_y + 5)
                 cr.stroke()
                 
-                label = "(%0.4f, %0.4f)" % (x_value, fn_y)
-                cr.move_to(x_c+10, y_c+10)
+                label = "(%0.4f, %0.4f)" % (x_value, y_value)
+                cr.move_to(c_x+10, c_y+10)
                 cr.text_path(label)
                 cr.set_source_rgba(1,1,1,0.75)
                 cr.set_line_width(6)
