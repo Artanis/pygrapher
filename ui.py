@@ -12,7 +12,7 @@ ui_tree = gtk.glade.XML(glade_ui)
 ui_tree.signal_autoconnect(callbacks.signals)
 
 # function, draw, error
-store_plot = gtk.TreeStore(str, bool, gtk.gdk.Pixbuf)
+store_plot = gtk.TreeStore(str, bool, tuple)
 store_plot.append(None, ["((x**3 + 2*x**2 + 3*x + 4) / x) / 8", True, None])
 store_plot.append(None, ["(x**2 + 2*x + 3) / 8", True, None])
 store_plot.append(None, ["", False, None])

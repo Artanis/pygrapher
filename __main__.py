@@ -52,8 +52,7 @@ def precompile_plot(model, path, row_iter, plots):
             plots.append((compiled, (r, g, b)))
             model[path][2] = None
         except SyntaxError:
-            model[path][2] = gtk.icon_theme_get_default().load_icon(
-                "gtk-dialog-warning", gtk.ICON_SIZE_MENU, 0)
+            pass
 
 def marks(min_val,max_val,minor=1):
 	""" yield positions of scale marks between min and max. For making
