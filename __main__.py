@@ -10,36 +10,6 @@ import ui
 import plotter
 import renderer
 
-# I knew this app was going to borrow  heavily from Lybniz, but this
-# is going to get ridiculous... I'm going to have to figure everything
-# out before I can pull it apart and get it back together again.
-
-# Anyway, this next block of code is from Lybniz
-
-# some extra maths functions
-def fac(x):
-	if type(x) != int or x < 0:
-		raise ValueError
-	if x==0:
-		return 1
-	for n in range(2,x):
-		x = x*n
-	return x
-
-def sinc(x):
-	if x == 0:
-		return 1
-	return sin(x)/x
-
-# create a safe namespace for the eval()s in the graph drawing code
-def sub_dict(somedict, somekeys, default=None):
-	return dict([ (k, somedict.get(k, default)) for k in somekeys ])
-# a list of the functions from math that we want.
-safe_list = ['math','acos', 'asin', 'atan', 'atan2', 'ceil', 'cos', 'cosh', 'degrees', 'e', 'exp', 'fabs', 'floor', 'fmod', 'frexp', 'hypot', 'ldexp', 'log', 'log10', 'modf', 'pi', 'pow', 'radians', 'sin', 'sinh', 'sqrt', 'tan', 'tanh','fac','sinc']
-safe_dict = sub_dict(locals(), safe_list)
-
-# End Lybniz
-
 def expose_graph (draw, event):
     # Profiling
     draw_start = time()
