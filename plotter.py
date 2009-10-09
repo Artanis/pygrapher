@@ -95,6 +95,18 @@ class Function(object):
     """ Defines a function of x and provides methods to evaluate that
     function at any value of x, and to plot it against a domain.
     
+    Well, it's *intended* to represent f(x), but you can force f(y) by
+    swapping the range with the domain and swapping the x and y values
+    provided by the evaluation functions.
+    
+    For example, normally you'd use:
+    
+        x, y = f_of_x.evaluate(x)
+    
+    But you could also use:
+    
+        y, x = f_of_y.evaluate(y)
+    
     """
     
     def __init__(self, function_definition):
@@ -141,7 +153,8 @@ class Function(object):
           calculating values for domains of infinite size is just too
           much work.
         
-        Returns a generator for the coordinates.
+        Returns a generator for the coordinates, which provides points
+        as tuple(x_value, y_value).
         
         """
         function = self.__compile()
@@ -157,16 +170,23 @@ class Function(object):
         Named Arguments:
         * x -- value to evaluate the function at
         * function -- pre-compiled function ready for evaluation. Leave
-          default to have this function compile the function.
+          default to have this method compile the function.
         * namespace -- pre-existing namespace definition for safe
-          evaluation. Leave default to have this function create a safe
+          evaluation. Leave default to have this method create a safe
           namespace from the safe_dict module variable.
+        
+        The function and namespace parameters exist mostly for use with
+        the plot method. It is highly recommended to allow this method
+        to construct those two parameters under most circumstances.
+        
+        Returns a tuple containing the point as tuple(x_value, y_value).
         
         """
         
         function = self.__compile() if function is None else function
         
         namespace = safe_dict.copy() if namespace is None else namespace
+        
         namespace['x'] = x
         
         y = None
