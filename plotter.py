@@ -20,9 +20,9 @@ __all__ = ['Function']
 fac = factorial
 
 def sinc(x):
-	if x == 0:
-		return 1
-	return sin(x)/x
+    if x == 0:
+        return 1
+    return sin(x)/x
 
 # create a safe namespace for the eval()s in the graph drawing code
 def sub_dict(somedict, somekeys, default=None):
@@ -36,7 +36,7 @@ def sub_dict(somedict, somekeys, default=None):
     
     """
     
-	return dict([(k, somedict.get(k, default)) for k in somekeys])
+    return dict([(k, somedict.get(k, default)) for k in somekeys])
 
 # a list of the functions from math that we want.
 safe_list = ['math','acos', 'asin', 'atan', 'atan2', 'ceil', 'cos',
@@ -47,47 +47,47 @@ safe_list = ['math','acos', 'asin', 'atan', 'atan2', 'ceil', 'cos',
 safe_dict = sub_dict(locals(), safe_list)
 
 def marks(min_val,max_val,minor=1):
-	""" yield positions of scale marks between min and max. For making
-	minor marks, set minor to the number of minors you want between
-	majors
-	
-	Borrowed wholesale from Lybniz by Thomas Führinger and Sam Tygier
-	
-	Thanks guys!
-	
-	"""
-	
-	try:
-		min_val = float(min_val)
-		max_val = float(max_val)
-	except:
-		print "needs 2 numbers"
-		raise ValueError
+    """ yield positions of scale marks between min and max. For making
+    minor marks, set minor to the number of minors you want between
+    majors
+    
+    Borrowed wholesale from Lybniz by Thomas Führinger and Sam Tygier
+    
+    Thanks guys!
+    
+    """
+    
+    try:
+        min_val = float(min_val)
+        max_val = float(max_val)
+    except:
+        print "needs 2 numbers"
+        raise ValueError
 
-	if(min_val >= max_val):
-		print "min bigger or equal to max"
-		raise ValueError		
+    if(min_val >= max_val):
+        print "min bigger or equal to max"
+        raise ValueError
 
-	a = 0.2 # tweakable control for when to switch scales
-	          # big a value results in more marks
+    a = 0.2 # tweakable control for when to switch scales
+              # big a value results in more marks
 
-	a = a + log10(minor)
+    a = a + log10(minor)
 
-	width = max_val - min_val
-	log10_range = log10(width)
+    width = max_val - min_val
+    log10_range = log10(width)
 
-	interval = 10 ** int(floor(log10_range - a))
-	lower_mark = min_val - fmod(min_val,interval)
-	
-	if lower_mark < min_val:
-		lower_mark += interval
+    interval = 10 ** int(floor(log10_range - a))
+    lower_mark = min_val - fmod(min_val,interval)
+    
+    if lower_mark < min_val:
+        lower_mark += interval
 
-	a_mark = lower_mark
-	while a_mark <= max_val:
-		if abs(a_mark) < interval / 2:
-			a_mark = 0
-		yield a_mark
-		a_mark += interval
+    a_mark = lower_mark
+    while a_mark <= max_val:
+        if abs(a_mark) < interval / 2:
+            a_mark = 0
+        yield a_mark
+        a_mark += interval
 
 # End Lybniz
 
