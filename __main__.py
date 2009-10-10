@@ -34,8 +34,6 @@ def expose_graph (draw, event):
     origin_y = int(round(canvas_y(0)))
     
     # Draw Coordinate Plane
-    factor = 1
-    
     # Draw cross
     # Y axis
     cr.set_source_rgb(0,0,0)
@@ -50,9 +48,8 @@ def expose_graph (draw, event):
     cr.set_line_width(1.5)
     cr.stroke()
     
-    for i in plotter.marks(xmin / factor, xmax / factor):
+    for i in plotter.marks(xmin, xmax):
         label = '%g' % i if i != 0 else ""
-        i = i * factor
         
         cr.set_source_rgb(0,0,0)
         cr.move_to(int(round(canvas_x(i))), origin_y - 5)
@@ -79,9 +76,7 @@ def expose_graph (draw, event):
         cr.text_path(label)
         cr.fill()
     
-    for i in plotter.marks(xmin / factor, xmax / factor, minor=10):
-        i = i * factor
-        
+    for i in plotter.marks(xmin, xmax, minor=10):
         cr.set_source_rgb(0,0,0)
         cr.move_to(int(round(canvas_x(i))), origin_y - 2)
         cr.line_to(int(round(canvas_x(i))), origin_y + 2)
@@ -97,11 +92,17 @@ def expose_graph (draw, event):
     
     # Plot graphs
     functions = []
-    def foreach_cb(treemodel, treepath, treeiter):
-        if treemodel[treepath][1] and treemodel[treepath][0] != "":
-            functions.append(plotter.Function(treemodel[treepath][0]))
     
-    ui.store_plot.foreach(foreach_cb)
+    # kinda nice, this function definition anywhere ability.
+    # This creates plotter.Function objects for each active function
+    # in the TreeStore.
+    def foreach_cb(treemodel, treepath, treeiter, selection):
+        if treemodel[treepath][1] and treemodel[treepath][0] != "":
+            highlight = selection.iter_is_selected(treeiter)
+            functions.append(plotter.Function(treemodel[treepath][0], highlight))
+    ui.store_plot.foreach(foreach_cb, ui.tree_plot.get_selection())
+    
+    del(foreach_cb) # Don't need it anymore.
     
     if len(functions) > 0:
         domain = map(graph_x, xrange(0, w, 1))
@@ -127,7 +128,7 @@ def expose_graph (draw, event):
             
             r, g, b, a = function.color
             cr.set_source_rgb(r, g, b)
-            cr.set_line_width(1)
+            cr.set_line_width(3 if function.highlight else 1)
             cr.stroke()
     
     # Draw the trace line and highlight intersections (with coords)
