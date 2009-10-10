@@ -109,8 +109,9 @@ class Function(object):
     
     """
     
-    def __init__(self, function_definition):
+    def __init__(self, function_definition, highlight=False):
         self.__function = function_definition
+        self.highlight = highlight
     
     @property
     def color(self):
@@ -194,5 +195,4 @@ class Function(object):
         except: pass
         
         return (x, y)
-
 
