@@ -6,148 +6,11 @@
     <property name="title" translatable="yes">pyGrapher</property>
     <property name="window_position">center</property>
     <signal name="destroy" handler="gtk_main_quit"/>
+    <signal name="key_release_event" handler="on_window_main_key_release_event"/>
     <child>
       <widget class="GtkVBox" id="vbox_main">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
-        <child>
-          <widget class="GtkMenuBar" id="menu_main">
-            <property name="visible">True</property>
-            <child>
-              <widget class="GtkMenuItem" id="menuitem1">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">_File</property>
-                <property name="use_underline">True</property>
-                <child>
-                  <widget class="GtkMenu" id="menu1">
-                    <property name="visible">True</property>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem1">
-                        <property name="label">gtk-new</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem2">
-                        <property name="label">gtk-open</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem3">
-                        <property name="label">gtk-save</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem4">
-                        <property name="label">gtk-save-as</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkSeparatorMenuItem" id="separatormenuitem1">
-                        <property name="visible">True</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem5">
-                        <property name="label">gtk-quit</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="gtk_main_quit"/>
-                      </widget>
-                    </child>
-                  </widget>
-                </child>
-              </widget>
-            </child>
-            <child>
-              <widget class="GtkMenuItem" id="menuitem2">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">_Edit</property>
-                <property name="use_underline">True</property>
-                <child>
-                  <widget class="GtkMenu" id="menu2">
-                    <property name="visible">True</property>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem6">
-                        <property name="label">gtk-cut</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem7">
-                        <property name="label">gtk-copy</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem8">
-                        <property name="label">gtk-paste</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem9">
-                        <property name="label">gtk-delete</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                      </widget>
-                    </child>
-                  </widget>
-                </child>
-              </widget>
-            </child>
-            <child>
-              <widget class="GtkMenuItem" id="menuitem3">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">_View</property>
-                <property name="use_underline">True</property>
-              </widget>
-            </child>
-            <child>
-              <widget class="GtkMenuItem" id="menuitem4">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">_Help</property>
-                <property name="use_underline">True</property>
-                <child>
-                  <widget class="GtkMenu" id="menu3">
-                    <property name="visible">True</property>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem10">
-                        <property name="label">gtk-about</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                      </widget>
-                    </child>
-                  </widget>
-                </child>
-              </widget>
-            </child>
-          </widget>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
         <child>
           <widget class="GtkHBox" id="hbox_app">
             <property name="visible">True</property>
@@ -172,38 +35,12 @@
                             <property name="n_rows">6</property>
                             <property name="n_columns">2</property>
                             <child>
-                              <widget class="GtkLabel" id="lbl_graphwindow_x_min">
+                              <widget class="GtkLabel" id="lbl_graphwindow_x">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">X-min</property>
+                                <property name="label" translatable="yes">Domain</property>
                               </widget>
                               <packing>
                                 <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
-                                <property name="x_options"></property>
-                                <property name="x_padding">4</property>
-                                <property name="y_padding">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkLabel" id="lbl_graphwindow_y_min">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">Y-min</property>
-                              </widget>
-                              <packing>
-                                <property name="top_attach">3</property>
-                                <property name="bottom_attach">4</property>
-                                <property name="x_options"></property>
-                                <property name="x_padding">4</property>
-                                <property name="y_padding">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkLabel" id="lbl_graphwindow_x_max">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">X-max</property>
-                              </widget>
-                              <packing>
-                                <property name="top_attach">2</property>
                                 <property name="bottom_attach">3</property>
                                 <property name="x_options"></property>
                                 <property name="x_padding">4</property>
@@ -211,12 +48,12 @@
                               </packing>
                             </child>
                             <child>
-                              <widget class="GtkLabel" id="lbl_graphwindow_y_max">
+                              <widget class="GtkLabel" id="lbl_graphwindow_y">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">Y-max</property>
+                                <property name="label" translatable="yes">Range</property>
                               </widget>
                               <packing>
-                                <property name="top_attach">4</property>
+                                <property name="top_attach">3</property>
                                 <property name="bottom_attach">5</property>
                                 <property name="x_options"></property>
                                 <property name="x_padding">4</property>
@@ -237,6 +74,7 @@
                                 <property name="digits">2</property>
                                 <property name="numeric">True</property>
                                 <signal name="change_value" handler="on_graphwindow_changed"/>
+                                <signal name="scroll_event" handler="on_graphwindow_changed"/>
                               </widget>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -261,6 +99,7 @@
                                 <property name="digits">2</property>
                                 <property name="numeric">True</property>
                                 <signal name="change_value" handler="on_graphwindow_changed"/>
+                                <signal name="scroll_event" handler="on_graphwindow_changed"/>
                               </widget>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -285,6 +124,7 @@
                                 <property name="digits">2</property>
                                 <property name="numeric">True</property>
                                 <signal name="change_value" handler="on_graphwindow_changed"/>
+                                <signal name="scroll_event" handler="on_graphwindow_changed"/>
                               </widget>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -309,6 +149,7 @@
                                 <property name="digits">2</property>
                                 <property name="numeric">True</property>
                                 <signal name="change_value" handler="on_graphwindow_changed"/>
+                                <signal name="scroll_event" handler="on_graphwindow_changed"/>
                               </widget>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -324,12 +165,17 @@
                                 <property name="label" translatable="yes">gtk-refresh</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="can_default">True</property>
+                                <property name="has_default">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="use_stock">True</property>
                                 <signal name="clicked" handler="on_btn_refresh_clicked"/>
+                                <accelerator key="r" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                                <accelerator key="F5" signal="activate"/>
                               </widget>
                               <packing>
                                 <property name="right_attach">2</property>
+                                <property name="x_padding">4</property>
                               </packing>
                             </child>
                             <child>
@@ -399,7 +245,9 @@
                             <property name="headers_clickable">False</property>
                             <property name="rules_hint">True</property>
                             <property name="enable_search">False</property>
+                            <property name="hover_selection">True</property>
                             <property name="show_expanders">False</property>
+                            <property name="rubber_banding">True</property>
                             <signal name="key_press_event" handler="on_tree_plot_key_press_event"/>
                           </widget>
                         </child>
@@ -420,7 +268,12 @@
                     <property name="height_request">400</property>
                     <property name="visible">True</property>
                     <property name="app_paintable">True</property>
-                    <signal name="button_press_event" handler="on_draw_graph_button_press_event"/>
+                    <property name="events">GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_MOTION_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON2_MOTION_MASK | GDK_BUTTON3_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK | GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_FOCUS_CHANGE_MASK | GDK_STRUCTURE_MASK | GDK_PROPERTY_CHANGE_MASK | GDK_VISIBILITY_NOTIFY_MASK | GDK_PROXIMITY_IN_MASK | GDK_PROXIMITY_OUT_MASK | GDK_SUBSTRUCTURE_MASK | GDK_SCROLL_MASK</property>
+                    <property name="extension_events">all</property>
+                    <signal name="drag_motion" handler="on_draw_graph_drag_motion"/>
+                    <signal name="drag_begin" handler="on_draw_graph_drag_begin"/>
+                    <signal name="scroll_event" handler="on_draw_graph_scroll_event"/>
+                    <signal name="drag_end" handler="on_draw_graph_drag_end"/>
                   </widget>
                   <packing>
                     <property name="resize">True</property>
@@ -434,7 +287,7 @@
             </child>
           </widget>
           <packing>
-            <property name="position">1</property>
+            <property name="position">0</property>
           </packing>
         </child>
         <child>
@@ -444,7 +297,7 @@
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="position">3</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </widget>

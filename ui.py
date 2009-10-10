@@ -9,8 +9,6 @@ __all__ = ["ui_tree", "window_main", "store_plot", "tree_plot",
 glade_ui = "ui.glade"
 ui_tree = gtk.glade.XML(glade_ui)
 
-ui_tree.signal_autoconnect(callbacks.signals)
-
 # function, draw, error
 store_plot = gtk.TreeStore(str, bool)
 store_plot.append(None, ["((x**3 + 2*x**2 + 3*x + 4) / x) / 8", True])
@@ -43,6 +41,11 @@ tree_plot.append_column(col_draw)
 tree_plot.append_column(col_function)
 
 draw_graph = ui_tree.get_widget("draw_graph")
+#draw_graph.drag_source_set(gtk.gdk.BUTTON1_MASK,
+#    [("",gtk.TARGET_SAME_WIDGET,0)], gtk.gdk.ACTION_DEFAULT)
+#draw_graph.drag_dest_set(gtk.DEST_DEFAULT_MOTION,
+#    [("",gtk.TARGET_SAME_WIDGET,0)], gtk.gdk.ACTION_DEFAULT)
+
 window_main = ui_tree.get_widget("window_main")
 status_main = ui_tree.get_widget("status_main")
 
@@ -66,3 +69,19 @@ xmin.set_value(-5.0)
 xmax.set_value(5.0)
 ymin.set_value(-5.0)
 ymax.set_value(5.0)
+
+#drag_vector = [(0,0)]
+signals = {
+    "gtk_main_quit": gtk.main_quit,
+    "on_tree_plot_key_press_event": callbacks.on_tree_plot_key_press_event,
+    #"on_draw_graph_drag_begin": (callbacks.on_draw_graph_drag_begin, drag_vector),
+    #"on_draw_graph_drag_motion": (callbacks.on_draw_graph_drag_motion,
+    #    (xmin, xmax, ymin, ymax), draw_graph, drag_vector),
+    #"on_draw_graph_drag_end": (callbacks.on_draw_graph_drag_end, drag_vector),
+    "on_draw_graph_scroll_event": (callbacks.on_draw_graph_scroll_event,
+        (xmin, xmax, ymin, ymax), draw_graph),
+    "on_graphwindow_changed": (callbacks.on_graphwindow_changed, draw_graph)
+}
+
+ui_tree.signal_autoconnect(signals)
+
