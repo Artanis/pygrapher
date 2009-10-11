@@ -122,6 +122,7 @@ class Graph(object):
             cr.set_line_width(1)
             cr.move_to(canvas_x, 0)
             cr.line_to(canvas_x, self.height)
+            cr.stroke()
             
             for function in functions:
                 x, y = function.evaluate(trace)
@@ -129,11 +130,21 @@ class Graph(object):
                 canvas_y = self.canvas_y(y) if y is not None else -1
                 
                 if canvas_y > 0 and canvas_y < self.height:
+                    cr.set_source_rgb(1,0,0)
+                    cr.set_line_width(1)
                     cr.move_to(canvas_x - 5, canvas_y - 5)
                     cr.line_to(canvas_x + 5, canvas_y + 5)
                     cr.move_to(canvas_x + 5, canvas_y - 5)
                     cr.line_to(canvas_x - 5, canvas_y + 5)
-            cr.stroke()
+                    cr.stroke()
+                    
+                    cr.move_to(canvas_x, canvas_y)
+                    cr.text_path("(%0.2f, %0.2f)" % (x, y))
+                    cr.set_source_rgba(1,1,1,0.5)
+                    cr.set_line_width(6)
+                    cr.stroke_preserve()
+                    cr.set_source_rgb(0,0,0)
+                    cr.fill()
         
         print "Trace:", (time.time() - trace_start) * 1000
         
