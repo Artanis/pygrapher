@@ -4,7 +4,7 @@ import gtk.glade
 import callbacks
 
 __all__ = ["ui_tree", "window_main", "store_plot", "tree_plot",
-    "draw_graph", "status_main", "trace"]
+    "draw_graph", "status_main", "trace", "resolution"]
 
 glade_ui = "ui.glade"
 ui_tree = gtk.glade.XML(glade_ui)
@@ -56,11 +56,20 @@ ymin = ui_tree.get_widget("spinner_graphwindow_y_min")
 ymax = ui_tree.get_widget("spinner_graphwindow_y_max")
 
 def trace():
+    """ Returns a float to be traced, or None if tracing is disabled
+    
+    """
+    
     x_value = ui_tree.get_widget("spin_trace").get_value()
     b_trace = ui_tree.get_widget("chk_trace").get_active()
-    return (b_trace, x_value)
+    return x_value if b_trace else None
 
 def resolution():
+    """ Returns the resolution of the graph window as
+    tuple(xmin, xmax, ymin, ymax)
+    
+    """
+    
     return (xmin.get_value(), xmax.get_value(),
         ymin.get_value(), ymax.get_value())
 
