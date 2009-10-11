@@ -123,7 +123,7 @@ class Function(object):
         hash, with each components taking 8 digits of the hexdigest
         each. From RGB, the highest and lowest values are selected and
         made 1.0 and 0.0 respectively, the other is scaled to that
-        range. A is divided by it's maximum possible value.
+        range. Alpha is divided by it's maximum possible value.
         
         """
         
