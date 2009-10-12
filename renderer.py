@@ -33,7 +33,7 @@ class Graph(object):
         cr = cairo.Context(canvas)
         
         # Profiling
-        total = time.time()
+        #total = time.time()
         
         # Blank canvas
         cr.set_source_rgb(1.0,1.0,1.0)
@@ -111,9 +111,9 @@ class Graph(object):
                 cr.set_line_width(3 if function.highlight else 1)
                 cr.stroke()
         
-        print "functions:", (time.time() - plot_start) * 1000
+        #print "functions:", (time.time() - plot_start) * 1000
         
-        trace_start = time.time()
+        #trace_start = time.time()
         
         if trace is not None:
             canvas_x = self.canvas_x(trace)
@@ -146,9 +146,9 @@ class Graph(object):
                     cr.set_source_rgb(0,0,0)
                     cr.fill()
         
-        print "Trace:", (time.time() - trace_start) * 1000
+        #print "Trace:", (time.time() - trace_start) * 1000
         
-        print "Total:", (time.time() - total) * 1000
+        #print "Total:", (time.time() - total) * 1000
         
         return canvas
     
