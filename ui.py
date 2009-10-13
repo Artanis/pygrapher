@@ -88,6 +88,7 @@ signals['on_tree_plot_key_press_event'] = callbacks.on_tree_plot_key_press_event
 #signals['on_draw_graph_drag_end'] = (callbacks.on_draw_graph_drag_end, drag_vector)
 signals['on_draw_graph_scroll_event'] = (callbacks.on_draw_graph_scroll_event, (xmin, xmax, ymin, ymax), draw_graph)
 signals['on_graphwindow_changed'] = (callbacks.on_graphwindow_changed, draw_graph)
+signals['on_menu_main_graph_new_activate'] = (callbacks.on_menu_main_graph_new_activate, store_plot)
 signals['on_menu_main_graph_open_activate'] = (callbacks.on_menu_main_graph_open_activate, store_plot)
 signals['on_menu_main_graph_save_activate'] = (callbacks.on_menu_main_graph_save_activate, store_plot)
 
