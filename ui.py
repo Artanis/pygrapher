@@ -18,13 +18,11 @@ store_plot.append(None, ["", False])
 # Setup columns
 # COLUMN str -- Function
 col_function = gtk.TreeViewColumn("Function")
-
 col_function_cell = gtk.CellRendererText()
 col_function_cell.set_property("editable", True)
 col_function_cell.connect("edited",
     callbacks.on_col_function_cell_edited, store_plot)
 col_function.pack_start(col_function_cell)
-
 col_function.add_attribute(col_function_cell, "text", 0)
 
 # COLUMN bool -- Plot the function?
@@ -37,6 +35,7 @@ col_draw.add_attribute(col_draw_cell, "active", 1)
 
 tree_plot = ui_tree.get_widget("tree_plot")
 tree_plot.set_model(store_plot)
+tree_plot.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
 tree_plot.append_column(col_draw)
 tree_plot.append_column(col_function)
 

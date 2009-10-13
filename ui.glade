@@ -344,8 +344,8 @@
                             <property name="receives_default">True</property>
                             <property name="use_stock">True</property>
                             <signal name="clicked" handler="on_btn_refresh_clicked"/>
-                            <accelerator key="F5" signal="activate"/>
                             <accelerator key="r" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                            <accelerator key="F5" signal="activate"/>
                           </widget>
                           <packing>
                             <property name="right_attach">2</property>
@@ -431,8 +431,8 @@
                 </child>
                 <child>
                   <widget class="GtkDrawingArea" id="draw_graph">
-                    <property name="width_request">396</property>
-                    <property name="height_request">400</property>
+                    <property name="width_request">512</property>
+                    <property name="height_request">512</property>
                     <property name="visible">True</property>
                     <property name="app_paintable">True</property>
                     <property name="events">GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_MOTION_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON2_MOTION_MASK | GDK_BUTTON3_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK | GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_FOCUS_CHANGE_MASK | GDK_STRUCTURE_MASK | GDK_PROPERTY_CHANGE_MASK | GDK_VISIBILITY_NOTIFY_MASK | GDK_PROXIMITY_IN_MASK | GDK_PROXIMITY_OUT_MASK | GDK_SUBSTRUCTURE_MASK | GDK_SCROLL_MASK</property>
