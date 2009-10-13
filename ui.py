@@ -91,6 +91,7 @@ signals['on_graphwindow_changed'] = (callbacks.on_graphwindow_changed, draw_grap
 signals['on_menu_main_graph_new_activate'] = (callbacks.on_menu_main_graph_new_activate, store_plot)
 signals['on_menu_main_graph_open_activate'] = (callbacks.on_menu_main_graph_open_activate, store_plot)
 signals['on_menu_main_graph_save_activate'] = (callbacks.on_menu_main_graph_save_activate, store_plot)
+signals['on_menu_main_graph_export_activate'] = (callbacks.on_menu_main_graph_export_activate, store_plot, resolution())
 
 ui_tree.signal_autoconnect(signals)
 

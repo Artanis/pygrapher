@@ -25,12 +25,13 @@ class Graph(object):
         self.size = list(size)
         self.resolution = list(resolution)
     
-    def render(self, functions, trace=None):
+    def render(self, functions, trace=None, canvas=None):
         origin_x, origin_y = self.canvas_point(0,0)
         
         # Set-up canvas and context
-        canvas = cairo.ImageSurface(cairo.FORMAT_ARGB32,
-            self.width, self.height)
+        if canvas is None:
+            canvas = cairo.ImageSurface(cairo.FORMAT_ARGB32,
+                self.width, self.height)
         cr = cairo.Context(canvas)
         
         # Prepare Labeling

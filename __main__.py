@@ -37,3 +37,4 @@ ui.draw_graph.connect("expose-event", expose_graph)
 
 ui.window_main.show_all()
 gtk.main()
+

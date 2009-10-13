@@ -1,7 +1,9 @@
 import re
 import gtk
+import cairo
 
 import plotter
+import renderer
 
 __all__ = []
 
@@ -115,7 +117,7 @@ def on_menu_main_graph_new_activate(widget, treestore):
     treestore.append(None, ["", False])
 
 def on_menu_main_graph_save_activate(widget, treestore):
-    chooser = gtk.FileChooserDialog(title=None,
+    chooser = gtk.FileChooserDialog(title="Save Function List",
         action=gtk.FILE_CHOOSER_ACTION_SAVE,
         buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_SAVE_AS, gtk.RESPONSE_OK))
@@ -134,7 +136,7 @@ def on_menu_main_graph_save_activate(widget, treestore):
     chooser.destroy()
 
 def on_menu_main_graph_open_activate(widget, treestore):
-    chooser = gtk.FileChooserDialog(title=None,
+    chooser = gtk.FileChooserDialog(title="Open Function List",
         action=gtk.FILE_CHOOSER_ACTION_SAVE,
         buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
@@ -157,4 +159,29 @@ def on_menu_main_graph_open_activate(widget, treestore):
             #treestore.append(
     chooser.destroy()
     treestore.foreach(store_plot_police_cb)
+
+def on_menu_main_graph_export_activate(widget, store_plot, resolution):
+    chooser = gtk.FileChooserDialog(title="Export Graph as Image",
+        action=gtk.FILE_CHOOSER_ACTION_SAVE,
+        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_SAVE_AS, gtk.RESPONSE_OK))
+    filefilter = gtk.FileFilter()
+    filefilter.set_name("Scalable Vector Graphic")
+    filefilter.add_mime_type("image/svg+xml")
+    chooser.add_filter(filefilter)
+    
+    response = chooser.run()
+    if response == gtk.RESPONSE_OK:
+        # create renderer
+        graph = renderer.Graph((512, 512), resolution)
+        
+        # Get graphs
+        functions = []
+
+        store_plot.foreach(store_plot_to_list_cb,
+            (functions, None))
+        
+        canvas = cairo.SVGSurface(chooser.get_filename(), 512, 512)
+        graph.render(functions, canvas=canvas)
+    chooser.destroy()
 
