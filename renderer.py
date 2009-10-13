@@ -134,28 +134,29 @@ class Graph(object):
             cr.stroke()
             
             for function in functions:
-                x, y = function.evaluate(trace)
-                
-                canvas_y = self.canvas_y(y) if y is not None else -1
-                
-                if canvas_y > 0 and canvas_y < self.height:
-                    cr.set_source_rgb(1,0,0)
-                    cr.set_line_width(1)
-                    cr.move_to(canvas_x - 5, canvas_y - 5)
-                    cr.line_to(canvas_x + 5, canvas_y + 5)
-                    cr.move_to(canvas_x + 5, canvas_y - 5)
-                    cr.line_to(canvas_x - 5, canvas_y + 5)
-                    cr.stroke()
+                if function.active:
+                    x, y = function.evaluate(trace)
                     
-                    c_y = self.canvas_y(y)
-                    c_y = c_y + extents['height'] if y > 0 else c_y
-                    cr.move_to(canvas_x + 7.5, c_y)
-                    cr.text_path("(%0.2f, %0.2f)" % (x, y))
-                    cr.set_source_rgba(1,1,1,0.5)
-                    cr.set_line_width(6)
-                    cr.stroke_preserve()
-                    cr.set_source_rgb(0,0,0)
-                    cr.fill()
+                    canvas_y = self.canvas_y(y) if y is not None else -1
+                    
+                    if canvas_y > 0 and canvas_y < self.height:
+                        cr.set_source_rgb(1,0,0)
+                        cr.set_line_width(1)
+                        cr.move_to(canvas_x - 5, canvas_y - 5)
+                        cr.line_to(canvas_x + 5, canvas_y + 5)
+                        cr.move_to(canvas_x + 5, canvas_y - 5)
+                        cr.line_to(canvas_x - 5, canvas_y + 5)
+                        cr.stroke()
+                        
+                        c_y = self.canvas_y(y)
+                        c_y = c_y + extents['height'] if y > 0 else c_y
+                        cr.move_to(canvas_x + 7.5, c_y)
+                        cr.text_path("(%0.2f, %0.2f)" % (x, y))
+                        cr.set_source_rgba(1,1,1,0.5)
+                        cr.set_line_width(6)
+                        cr.stroke_preserve()
+                        cr.set_source_rgb(0,0,0)
+                        cr.fill()
         
         #print "Trace:", (time.time() - trace_start) * 1000
         
