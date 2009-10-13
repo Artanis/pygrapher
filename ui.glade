@@ -12,6 +12,201 @@
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>
+          <widget class="GtkMenuBar" id="menu_main">
+            <property name="visible">True</property>
+            <child>
+              <widget class="GtkMenuItem" id="menu_main_graph">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Graph</property>
+                <property name="use_underline">True</property>
+                <child>
+                  <widget class="GtkMenu" id="menu1">
+                    <property name="visible">True</property>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_graph_new">
+                        <property name="label">gtk-new</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_graph_open">
+                        <property name="label">gtk-open</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_graph_save">
+                        <property name="label">gtk-save</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_graph_save_as">
+                        <property name="label">gtk-save-as</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkSeparatorMenuItem" id="separatormenuitem1">
+                        <property name="visible">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkMenuItem" id="menu_main_graph_export">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Export</property>
+                        <property name="use_underline">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_graph_quit">
+                        <property name="label">gtk-quit</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="gtk_main_quit"/>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkMenuItem" id="menu_main_edit">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Edit</property>
+                <property name="use_underline">True</property>
+                <child>
+                  <widget class="GtkMenu" id="menu2">
+                    <property name="visible">True</property>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_edit_cut">
+                        <property name="label">gtk-cut</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_edit_copy">
+                        <property name="label">gtk-copy</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_edit_paste">
+                        <property name="label">gtk-paste</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_edit_delete">
+                        <property name="label">gtk-delete</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkMenuItem" id="menu_main_view">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_View</property>
+                <property name="use_underline">True</property>
+                <child>
+                  <widget class="GtkMenu" id="menu4">
+                    <property name="visible">True</property>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_view_zoom_in">
+                        <property name="label">gtk-zoom-in</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_view_zoom_out">
+                        <property name="label">gtk-zoom-out</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_view_zoom_standard">
+                        <property name="label">gtk-zoom-fit</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_view_zoom_square">
+                        <property name="label">gtk-zoom-100</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkSeparatorMenuItem" id="separatormenuitem2">
+                        <property name="visible">True</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_view_fullscreen">
+                        <property name="label">gtk-fullscreen</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkMenuItem" id="menu_main_help">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Help</property>
+                <property name="use_underline">True</property>
+                <child>
+                  <widget class="GtkMenu" id="menu3">
+                    <property name="visible">True</property>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_main_edit_help_about">
+                        <property name="label">gtk-about</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
           <widget class="GtkHBox" id="hbox_app">
             <property name="visible">True</property>
             <child>
@@ -25,203 +220,186 @@
                     <property name="visible">True</property>
                     <property name="orientation">vertical</property>
                     <child>
-                      <widget class="GtkExpander" id="expand_graphwindow">
+                      <widget class="GtkTable" id="table_graphwindow">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="expanded">True</property>
+                        <property name="n_rows">6</property>
+                        <property name="n_columns">2</property>
                         <child>
-                          <widget class="GtkTable" id="table_graphwindow">
+                          <widget class="GtkLabel" id="lbl_graphwindow_x">
                             <property name="visible">True</property>
-                            <property name="n_rows">6</property>
-                            <property name="n_columns">2</property>
-                            <child>
-                              <widget class="GtkLabel" id="lbl_graphwindow_x">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">Domain</property>
-                              </widget>
-                              <packing>
-                                <property name="top_attach">1</property>
-                                <property name="bottom_attach">3</property>
-                                <property name="x_options"></property>
-                                <property name="x_padding">4</property>
-                                <property name="y_padding">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkLabel" id="lbl_graphwindow_y">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">Range</property>
-                              </widget>
-                              <packing>
-                                <property name="top_attach">3</property>
-                                <property name="bottom_attach">5</property>
-                                <property name="x_options"></property>
-                                <property name="x_padding">4</property>
-                                <property name="y_padding">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkSpinButton" id="spinner_graphwindow_x_min">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
-                                <property name="xalign">1</property>
-                                <property name="primary_icon_activatable">True</property>
-                                <property name="secondary_icon_activatable">True</property>
-                                <property name="primary_icon_sensitive">True</property>
-                                <property name="secondary_icon_sensitive">True</property>
-                                <property name="adjustment">-10 -4294967295 4294967296 1 10 10</property>
-                                <property name="digits">2</property>
-                                <property name="numeric">True</property>
-                                <signal name="change_value" handler="on_graphwindow_changed"/>
-                                <signal name="scroll_event" handler="on_graphwindow_changed"/>
-                              </widget>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
-                                <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
-                                <property name="x_padding">4</property>
-                                <property name="y_padding">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkSpinButton" id="spinner_graphwindow_y_min">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
-                                <property name="xalign">1</property>
-                                <property name="primary_icon_activatable">True</property>
-                                <property name="secondary_icon_activatable">True</property>
-                                <property name="primary_icon_sensitive">True</property>
-                                <property name="secondary_icon_sensitive">True</property>
-                                <property name="adjustment">-10 -4294967295 4294967296 1 10 10</property>
-                                <property name="digits">2</property>
-                                <property name="numeric">True</property>
-                                <signal name="change_value" handler="on_graphwindow_changed"/>
-                                <signal name="scroll_event" handler="on_graphwindow_changed"/>
-                              </widget>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
-                                <property name="top_attach">3</property>
-                                <property name="bottom_attach">4</property>
-                                <property name="x_padding">4</property>
-                                <property name="y_padding">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkSpinButton" id="spinner_graphwindow_x_max">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
-                                <property name="xalign">1</property>
-                                <property name="primary_icon_activatable">True</property>
-                                <property name="secondary_icon_activatable">True</property>
-                                <property name="primary_icon_sensitive">True</property>
-                                <property name="secondary_icon_sensitive">True</property>
-                                <property name="adjustment">10 -4294967295 4294967296 1 10 10</property>
-                                <property name="digits">2</property>
-                                <property name="numeric">True</property>
-                                <signal name="change_value" handler="on_graphwindow_changed"/>
-                                <signal name="scroll_event" handler="on_graphwindow_changed"/>
-                              </widget>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
-                                <property name="top_attach">2</property>
-                                <property name="bottom_attach">3</property>
-                                <property name="x_padding">4</property>
-                                <property name="y_padding">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkSpinButton" id="spinner_graphwindow_y_max">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
-                                <property name="xalign">1</property>
-                                <property name="primary_icon_activatable">True</property>
-                                <property name="secondary_icon_activatable">True</property>
-                                <property name="primary_icon_sensitive">True</property>
-                                <property name="secondary_icon_sensitive">True</property>
-                                <property name="adjustment">10 -4294967295 4294967296 1 10 10</property>
-                                <property name="digits">2</property>
-                                <property name="numeric">True</property>
-                                <signal name="change_value" handler="on_graphwindow_changed"/>
-                                <signal name="scroll_event" handler="on_graphwindow_changed"/>
-                              </widget>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
-                                <property name="top_attach">4</property>
-                                <property name="bottom_attach">5</property>
-                                <property name="x_padding">4</property>
-                                <property name="y_padding">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkButton" id="btn_refresh">
-                                <property name="label" translatable="yes">gtk-refresh</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="can_default">True</property>
-                                <property name="has_default">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="use_stock">True</property>
-                                <signal name="clicked" handler="on_btn_refresh_clicked"/>
-                                <accelerator key="F5" signal="activate"/>
-                                <accelerator key="r" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                              </widget>
-                              <packing>
-                                <property name="right_attach">2</property>
-                                <property name="x_padding">4</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkSpinButton" id="spin_trace">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="invisible_char">&#x25CF;</property>
-                                <property name="xalign">1</property>
-                                <property name="adjustment">0 -4294967295 4294967296 1 10 10</property>
-                                <property name="digits">2</property>
-                                <signal name="change_value" handler="on_spin_trace_change_value"/>
-                              </widget>
-                              <packing>
-                                <property name="left_attach">1</property>
-                                <property name="right_attach">2</property>
-                                <property name="top_attach">5</property>
-                                <property name="bottom_attach">6</property>
-                                <property name="x_padding">4</property>
-                                <property name="y_padding">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkCheckButton" id="chk_trace">
-                                <property name="label" translatable="yes">Trace</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">False</property>
-                                <property name="draw_indicator">True</property>
-                                <signal name="toggled" handler="on_chk_trace_toggled"/>
-                              </widget>
-                              <packing>
-                                <property name="top_attach">5</property>
-                                <property name="bottom_attach">6</property>
-                                <property name="x_padding">4</property>
-                                <property name="y_padding">2</property>
-                              </packing>
-                            </child>
-                          </widget>
-                        </child>
-                        <child>
-                          <widget class="GtkLabel" id="expand_graphwindow_lbl">
-                            <property name="visible">True</property>
-                            <property name="label" translatable="yes">Window</property>
+                            <property name="label" translatable="yes">Domain</property>
                           </widget>
                           <packing>
-                            <property name="type">label_item</property>
+                            <property name="bottom_attach">2</property>
+                            <property name="x_options"></property>
+                            <property name="x_padding">4</property>
+                            <property name="y_padding">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkLabel" id="lbl_graphwindow_y">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Range</property>
+                          </widget>
+                          <packing>
+                            <property name="top_attach">2</property>
+                            <property name="bottom_attach">4</property>
+                            <property name="x_options"></property>
+                            <property name="x_padding">4</property>
+                            <property name="y_padding">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkSpinButton" id="spinner_graphwindow_x_min">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="xalign">1</property>
+                            <property name="primary_icon_activatable">True</property>
+                            <property name="secondary_icon_activatable">True</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
+                            <property name="adjustment">-10 -4294967295 4294967296 1 10 10</property>
+                            <property name="digits">2</property>
+                            <property name="numeric">True</property>
+                            <signal name="change_value" handler="on_graphwindow_changed"/>
+                            <signal name="scroll_event" handler="on_graphwindow_changed"/>
+                          </widget>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                            <property name="x_padding">4</property>
+                            <property name="y_padding">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkSpinButton" id="spinner_graphwindow_y_min">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="xalign">1</property>
+                            <property name="primary_icon_activatable">True</property>
+                            <property name="secondary_icon_activatable">True</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
+                            <property name="adjustment">-10 -4294967295 4294967296 1 10 10</property>
+                            <property name="digits">2</property>
+                            <property name="numeric">True</property>
+                            <signal name="change_value" handler="on_graphwindow_changed"/>
+                            <signal name="scroll_event" handler="on_graphwindow_changed"/>
+                          </widget>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                            <property name="top_attach">2</property>
+                            <property name="bottom_attach">3</property>
+                            <property name="x_padding">4</property>
+                            <property name="y_padding">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkSpinButton" id="spinner_graphwindow_x_max">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="xalign">1</property>
+                            <property name="primary_icon_activatable">True</property>
+                            <property name="secondary_icon_activatable">True</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
+                            <property name="adjustment">10 -4294967295 4294967296 1 10 10</property>
+                            <property name="digits">2</property>
+                            <property name="numeric">True</property>
+                            <signal name="change_value" handler="on_graphwindow_changed"/>
+                            <signal name="scroll_event" handler="on_graphwindow_changed"/>
+                          </widget>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                            <property name="top_attach">1</property>
+                            <property name="bottom_attach">2</property>
+                            <property name="x_padding">4</property>
+                            <property name="y_padding">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkSpinButton" id="spinner_graphwindow_y_max">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="xalign">1</property>
+                            <property name="primary_icon_activatable">True</property>
+                            <property name="secondary_icon_activatable">True</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
+                            <property name="adjustment">10 -4294967295 4294967296 1 10 10</property>
+                            <property name="digits">2</property>
+                            <property name="numeric">True</property>
+                            <signal name="change_value" handler="on_graphwindow_changed"/>
+                            <signal name="scroll_event" handler="on_graphwindow_changed"/>
+                          </widget>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                            <property name="top_attach">3</property>
+                            <property name="bottom_attach">4</property>
+                            <property name="x_padding">4</property>
+                            <property name="y_padding">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkButton" id="btn_refresh">
+                            <property name="label" translatable="yes">gtk-refresh</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="can_default">True</property>
+                            <property name="has_default">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="use_stock">True</property>
+                            <signal name="clicked" handler="on_btn_refresh_clicked"/>
+                            <accelerator key="r" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                            <accelerator key="F5" signal="activate"/>
+                          </widget>
+                          <packing>
+                            <property name="right_attach">2</property>
+                            <property name="top_attach">5</property>
+                            <property name="bottom_attach">6</property>
+                            <property name="x_padding">4</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkSpinButton" id="spin_trace">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="invisible_char">&#x25CF;</property>
+                            <property name="xalign">1</property>
+                            <property name="adjustment">0 -4294967295 4294967296 1 10 10</property>
+                            <property name="digits">2</property>
+                            <signal name="change_value" handler="on_spin_trace_change_value"/>
+                          </widget>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="right_attach">2</property>
+                            <property name="top_attach">4</property>
+                            <property name="bottom_attach">5</property>
+                            <property name="x_padding">4</property>
+                            <property name="y_padding">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="GtkCheckButton" id="chk_trace">
+                            <property name="label" translatable="yes">Trace</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="draw_indicator">True</property>
+                            <signal name="toggled" handler="on_chk_trace_toggled"/>
+                          </widget>
+                          <packing>
+                            <property name="top_attach">4</property>
+                            <property name="bottom_attach">5</property>
+                            <property name="x_padding">4</property>
+                            <property name="y_padding">2</property>
                           </packing>
                         </child>
                       </widget>
@@ -289,7 +467,7 @@
             </child>
           </widget>
           <packing>
-            <property name="position">0</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
@@ -299,7 +477,7 @@
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </widget>
