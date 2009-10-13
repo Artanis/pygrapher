@@ -1,9 +1,18 @@
-Name: pyGrapher
+pyGrapher
+=========
+
 Lisence: GPL
 Author: "Erik Youngren" <artanis.00@gmail.com>
 
-Inspired by the Lybniz educational grapher, pyGrapher will (besides
-probably eventually being renamed,) support unlimited functions, plots
-of points, functions of y (allowing graphs of vertical lines) saving and
-loading sets of functions to a file, and exporting the graph as an
-image. This list is probably not complete.
+Heavily inspired by the Lybniz educational grapher by Thomas Führinger
+and Sam Tygier.
+
+Feature List
+------------
+
+* Unlimited number of functions, and disabling of functions.
+* Saving sets of functions to a file.
+* Loading sets of functions from a file.
+* Exporting the graph as an image (Currently only SVG @ 512x512.)
+* [Pending] Plots of points
+* [Pending] Functions of y (allowing graphs of vertical lines)
