@@ -23,27 +23,12 @@
                   <widget class="GtkMenu" id="menu1">
                     <property name="visible">True</property>
                     <child>
-                      <widget class="GtkImageMenuItem" id="menu_main_graph_new">
-                        <property name="label">gtk-new</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                      </widget>
-                    </child>
-                    <child>
                       <widget class="GtkImageMenuItem" id="menu_main_graph_open">
                         <property name="label">gtk-open</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="menu_main_graph_save">
-                        <property name="label">gtk-save</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_menu_main_graph_open_activate"/>
                       </widget>
                     </child>
                     <child>
@@ -52,6 +37,7 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_menu_main_graph_save_activate"/>
                       </widget>
                     </child>
                     <child>
@@ -64,6 +50,7 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">Export</property>
                         <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_menu_main_graph_export_activate"/>
                       </widget>
                     </child>
                     <child>
@@ -137,6 +124,7 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_menu_main_view_zoom_in_activate"/>
                       </widget>
                     </child>
                     <child>
@@ -145,6 +133,7 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_menu_main_view_zoom_out_activate"/>
                       </widget>
                     </child>
                     <child>
@@ -153,6 +142,7 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_menu_main_view_zoom_standard_activate"/>
                       </widget>
                     </child>
                     <child>
@@ -161,19 +151,7 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkSeparatorMenuItem" id="separatormenuitem2">
-                        <property name="visible">True</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="menu_main_view_fullscreen">
-                        <property name="label">gtk-fullscreen</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_menu_main_view_zoom_square_activate"/>
                       </widget>
                     </child>
                   </widget>

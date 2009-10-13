@@ -8,6 +8,7 @@ from time import time
 import ui
 import plotter
 import renderer
+import callbacks
 
 def expose_graph (draw, event):
     x, y, w, h = draw.get_allocation()
@@ -18,17 +19,9 @@ def expose_graph (draw, event):
     
     # Get graphs
     functions = []
-    
-    # kinda nice, this function definition anywhere ability.
-    # This creates plotter.Function objects for each active function
-    # in the TreeStore.
-    def foreach_cb(treemodel, treepath, treeiter, selection):
-        if treemodel[treepath][1] and treemodel[treepath][0] != "":
-            highlight = selection.iter_is_selected(treeiter)
-            functions.append(plotter.Function(treemodel[treepath][0], highlight))
-    ui.store_plot.foreach(foreach_cb, ui.tree_plot.get_selection())
-    
-    del(foreach_cb) # Don't need it anymore.
+
+    ui.store_plot.foreach(callbacks.store_plot_foreach_cb,
+        (functions, ui.tree_plot.get_selection()))
     
     graph = canvas.render(functions, ui.trace())
     

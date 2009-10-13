@@ -1,6 +1,21 @@
+import re
 import gtk
 
+import plotter
+
 __all__ = []
+
+def store_plot_foreach_cb(treemodel, treepath, treeiter, user_data):
+    functions, selection = user_data
+    if treemodel[treepath][0] != "":
+        if selection is not None:
+            highlight = selection.iter_is_selected(treeiter)
+        else: highlight = False
+        functions.append(
+            plotter.Function(
+                treemodel[treepath][0],
+                treemodel[treepath][1],
+                highlight))
 
 # Tree View Row Callbacks
 def on_col_draw_cell_toggled(toggle, path, model):
@@ -97,4 +112,48 @@ def on_draw_graph_scroll_event(widget, event, res_controls, graph):
     graph.queue_draw()
     
     return True
+
+def on_menu_main_graph_save_activate(widget, treestore):
+    chooser = gtk.FileChooserDialog(title=None,
+        action=gtk.FILE_CHOOSER_ACTION_SAVE,
+        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_SAVE_AS, gtk.RESPONSE_OK))
+    filefilter = gtk.FileFilter()
+    filefilter.set_name("Function List")
+    filefilter.add_pattern("*.fn")
+    chooser.add_filter(filefilter)
+    
+    response = chooser.run()
+    if response == gtk.RESPONSE_OK:
+        functions = []
+        treestore.foreach(store_plot_foreach_cb, (functions, None))
+        save_file = open(chooser.get_filename(), "w")
+        for function in functions:
+            save_file.write(str(function)+"\n")
+    chooser.destroy()
+
+def on_menu_main_graph_open_activate(widget, treestore):
+    chooser = gtk.FileChooserDialog(title=None,
+        action=gtk.FILE_CHOOSER_ACTION_SAVE,
+        buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+    filefilter = gtk.FileFilter()
+    filefilter.set_name("Function List")
+    filefilter.add_pattern("*.fn")
+    chooser.add_filter(filefilter)
+    
+    response = chooser.run()
+    if response == gtk.RESPONSE_OK:
+        open_file = open(chooser.get_filename(), "r")
+        parse = re.compile("f\(x\)\s=\s(.*)", re.I).match
+        
+        treestore.clear()
+        
+        for line in open_file:
+            fn = parse(line)
+            if fn is not None:
+                print line
+                treestore.append(None, [fn.group(1), True])
+            #treestore.append(
+    chooser.destroy()
 
