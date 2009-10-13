@@ -1,3 +1,4 @@
+import math
 import time
 import cairo
 
@@ -32,6 +33,10 @@ class Graph(object):
             self.width, self.height)
         cr = cairo.Context(canvas)
         
+        # Prepare Labeling
+        extents = dict(zip(["ascent", "descent", "height", "max_x_advance", "max_y_advance"],
+            cr.font_extents()))
+        
         # Profiling
         total = time.time()
         
@@ -58,7 +63,7 @@ class Graph(object):
                 cr.move_to(self.canvas_x(i), origin_y - 5)
                 cr.line_to(self.canvas_x(i), origin_y + 5)
                 
-                cr.move_to(self.canvas_x(i), origin_y)
+                cr.move_to(self.canvas_x(i), origin_y + extents['height'])
                 cr.show_text(str(i))
         
         for i in plotter.marks(self.ymin, self.ymax):
@@ -66,19 +71,21 @@ class Graph(object):
                 cr.move_to(origin_x - 5, self.canvas_y(i))
                 cr.line_to(origin_x + 5, self.canvas_y(i))
                 
-                cr.move_to(origin_x, self.canvas_y(i))
+                c_y = self.canvas_y(i)
+                c_y = c_y + extents['height'] if i > 0 else c_y
+                cr.move_to(origin_x + 7.5, c_y)
                 cr.show_text(str(i))
         
         # Minor ticks
         for i in plotter.marks(self.xmin, self.xmax, 10):
             if i != 0:
-                cr.move_to(self.canvas_x(i), origin_y - 2)
-                cr.line_to(self.canvas_x(i), origin_y + 2)
+                cr.move_to(self.canvas_x(i), origin_y - 2.5)
+                cr.line_to(self.canvas_x(i), origin_y + 2.5)
         
         for i in plotter.marks(self.xmin, self.xmax, 10):
             if i != 0:
-                cr.move_to(origin_x - 2, self.canvas_y(i))
-                cr.line_to(origin_x + 2, self.canvas_y(i))
+                cr.move_to(origin_x - 2.5, self.canvas_y(i))
+                cr.line_to(origin_x + 2.5, self.canvas_y(i))
         
         cr.stroke()
         
@@ -138,7 +145,9 @@ class Graph(object):
                     cr.line_to(canvas_x - 5, canvas_y + 5)
                     cr.stroke()
                     
-                    cr.move_to(canvas_x, canvas_y)
+                    c_y = self.canvas_y(y)
+                    c_y = c_y + extents['height'] if y > 0 else c_y
+                    cr.move_to(canvas_x + 7.5, c_y)
                     cr.text_path("(%0.2f, %0.2f)" % (x, y))
                     cr.set_source_rgba(1,1,1,0.5)
                     cr.set_line_width(6)
