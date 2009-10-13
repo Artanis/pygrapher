@@ -82,7 +82,7 @@ class Graph(object):
                 cr.move_to(self.canvas_x(i), origin_y - 2.5)
                 cr.line_to(self.canvas_x(i), origin_y + 2.5)
         
-        for i in plotter.marks(self.xmin, self.xmax, 10):
+        for i in plotter.marks(self.ymin, self.ymax, 10):
             if i != 0:
                 cr.move_to(origin_x - 2.5, self.canvas_y(i))
                 cr.line_to(origin_x + 2.5, self.canvas_y(i))
@@ -94,29 +94,30 @@ class Graph(object):
         # Function Plotting
         if len(functions) > 0:
             for function in functions:
-                prev_drawn = False
-                
-                for point in function.plot(self.domain()):
-                    x, y = point
+                if function.active:
+                    prev_drawn = False
                     
-                    canvas_x = self.canvas_x(x)
-                    canvas_y = self.canvas_y(y) if y is not None else None
+                    for point in function.plot(self.domain()):
+                        x, y = point
+                        
+                        canvas_x = self.canvas_x(x)
+                        canvas_y = self.canvas_y(y) if y is not None else None
+                        
+                        if canvas_y is not None and \
+                            canvas_y > 0 and canvas_y < self.height:
+                            
+                            if prev_drawn:
+                                cr.line_to(canvas_x, canvas_y)
+                            else:
+                                cr.move_to(canvas_x, canvas_y)
+                                prev_drawn = True
+                            
+                        else: prev_drawn = False
                     
-                    if canvas_y is not None and \
-                        canvas_y > 0 and canvas_y < self.height:
-                        
-                        if prev_drawn:
-                            cr.line_to(canvas_x, canvas_y)
-                        else:
-                            cr.move_to(canvas_x, canvas_y)
-                            prev_drawn = True
-                        
-                    else: prev_drawn = False
-                
-                r, g, b, a = function.color
-                cr.set_source_rgb(r, g, b)
-                cr.set_line_width(3 if function.highlight else 1)
-                cr.stroke()
+                    r, g, b, a = function.color
+                    cr.set_source_rgb(r, g, b)
+                    cr.set_line_width(3 if function.highlight else 1)
+                    cr.stroke()
         
         #print "functions:", (time.time() - plot_start) * 1000
         

@@ -109,8 +109,9 @@ class Function(object):
     
     """
     
-    def __init__(self, function_definition, highlight=False):
+    def __init__(self, function_definition, active=True, highlight=False):
         self.__function = function_definition
+        self.active = active
         self.highlight = highlight
     
     @property
@@ -138,7 +139,8 @@ class Function(object):
             (color[2]-bottom) / (top-bottom), color[3] / float(16**8))
     
     def __repr__(self):
-        return """Function("%s", %s)""" % (self.__function, self.highlight)
+        return """Function("%s", active=%s, highlight=%s)""" % (
+            self.__function, self.active, self.highlight)
     
     def __str__(self):
         return """f(x) = %s""" % self.__function
