@@ -20,7 +20,7 @@ def expose_graph (draw, event):
     # Get graphs
     functions = []
 
-    ui.store_plot.foreach(callbacks.store_plot_foreach_cb,
+    ui.store_plot.foreach(callbacks.store_plot_to_list_cb,
         (functions, ui.tree_plot.get_selection()))
     
     graph = canvas.render(functions, ui.trace())

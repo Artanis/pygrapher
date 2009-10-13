@@ -5,7 +5,7 @@ import plotter
 
 __all__ = []
 
-def store_plot_foreach_cb(treemodel, treepath, treeiter, user_data):
+def store_plot_to_list_cb(treemodel, treepath, treeiter, user_data):
     functions, selection = user_data
     if treemodel[treepath][0] != "":
         if selection is not None:
@@ -16,6 +16,16 @@ def store_plot_foreach_cb(treemodel, treepath, treeiter, user_data):
                 treemodel[treepath][0],
                 treemodel[treepath][1],
                 highlight))
+
+def store_plot_police_cb(model, path, row_iter):
+    row = model[path]
+    if row.next is not None:
+        if row[0] == "":
+            model.remove(row_iter)
+    elif row[0] != "":
+        model.append(None, ["", False])
+    else:
+        model[path][1] = False
 
 # Tree View Row Callbacks
 def on_col_draw_cell_toggled(toggle, path, model):
@@ -34,20 +44,7 @@ def on_col_function_cell_edited(cell, path, text, model):
     model[path][0] = text
     model[path][1] = True
     
-    # Auto create/delete functions as needed
-    def cb(model, path, row_iter):
-        row = model[path]
-        if row.next is not None:
-            if row[0] == "":
-                model.remove(row_iter)
-        elif row[0] != "":
-            model.append(None, ["", False])
-        else:
-            model[path][1] = False
-    
-    model.foreach(cb)
-    
-    del(cb)
+    model.foreach(store_plot_police_cb)
 
 def on_tree_plot_key_press_event(widget, event):
     pass
@@ -113,6 +110,10 @@ def on_draw_graph_scroll_event(widget, event, res_controls, graph):
     
     return True
 
+def on_menu_main_graph_new_activate(widget, treestore):
+    treestore.clear()
+    treestore.append(None, ["", False])
+
 def on_menu_main_graph_save_activate(widget, treestore):
     chooser = gtk.FileChooserDialog(title=None,
         action=gtk.FILE_CHOOSER_ACTION_SAVE,
@@ -126,7 +127,7 @@ def on_menu_main_graph_save_activate(widget, treestore):
     response = chooser.run()
     if response == gtk.RESPONSE_OK:
         functions = []
-        treestore.foreach(store_plot_foreach_cb, (functions, None))
+        treestore.foreach(store_plot_to_list_cb, (functions, None))
         save_file = open(chooser.get_filename(), "w")
         for function in functions:
             save_file.write(str(function)+"\n")
@@ -152,8 +153,8 @@ def on_menu_main_graph_open_activate(widget, treestore):
         for line in open_file:
             fn = parse(line)
             if fn is not None:
-                print line
                 treestore.append(None, [fn.group(1), True])
             #treestore.append(
     chooser.destroy()
+    treestore.foreach(store_plot_police_cb)
 
