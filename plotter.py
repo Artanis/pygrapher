@@ -137,6 +137,12 @@ class Function(object):
         return ((color[0]-bottom) / (top-bottom), (color[1]-bottom) / (top-bottom),
             (color[2]-bottom) / (top-bottom), color[3] / float(16**8))
     
+    def __repr__(self):
+        return """Function("%s", %s)""" % (self.__function, self.highlight)
+    
+    def __str__(self):
+        return """f(x) = %s""" % self.__function
+    
     def __compile(self):
         """ Compiles the function text """
         try:
@@ -195,4 +201,3 @@ class Function(object):
         except: pass
         
         return (x, y)
-
